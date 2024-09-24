@@ -12,6 +12,7 @@ import Combine
 @Observable
 class MoviesHomeViewModel {
     var movies: [MoviesMenu : [Movie]] = [:]
+    var genres: [Genre] = []
     
     private var bags: Set<AnyCancellable> = .init()
     
@@ -20,24 +21,32 @@ class MoviesHomeViewModel {
     }
     
     func loadData() {
-//        movies[.popular] = [sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, ]
-//        movies[.topRated] = [sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, ]
-//        movies[.upcoming] = [sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, ]
-//        movies[.nowPlaying] = [sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, ]
-//        movies[.trending] = [sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, sampleMovie, ]
-        
         let region = Locale.current.region?.identifier ?? "US"
-        APIService.shared.request(endpoint: .nowPlaying(params: ["page": "1", "region": region])).sink { completion in
-            switch completion {
-            case .finished:
-                break
-            case .failure(let error):
-                print(error)
+        MoviesMenu.allCases.forEach { menu in
+            if menu == .genres {
+                APIService.shared.request(endpoint: menu.endpoint(params: ["page": "1", "region": region])).sink { completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        print(error)
+                    }
+                } receiveValue: {[weak self] (data: GenresResponse) in
+                    self?.genres = data.genres
+                }.store(in: &bags)
+            } else {
+                APIService.shared.request(endpoint: menu.endpoint(params: ["page": "1", "region": region])).sink { completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        print(error)
+                    }
+                } receiveValue: {[weak self] (data: PaginatedResponse<Movie>) in
+                    self?.movies[menu] = data.results
+                }.store(in: &bags)
             }
-        } receiveValue: { (data: PaginatedResponse<Movie>) in
-            self.movies[.nowPlaying] = data.results
-        }.store(in: &bags)
-
+        }
     }
     
 }

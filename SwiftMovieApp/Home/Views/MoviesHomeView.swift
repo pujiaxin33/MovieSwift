@@ -15,13 +15,18 @@ struct MoviesHomeView: View {
     var body: some View {
         List {
             ForEach(MoviesMenu.allCases, id: \.self) { menu in
-                if let movies = viewModel.movies[menu] {
-                    moviesList(menu: menu, movies: movies)
+                if menu == .genres {
+                    if !viewModel.genres.isEmpty {
+                        genresList(genres: viewModel.genres)
+                    }
+                } else {
+                    if let movies = viewModel.movies[menu] {
+                        moviesList(menu: menu, movies: movies)
+                    }
                 }
             }
         }
     }
-    
     
     func moviesList(menu: MoviesMenu, movies: [Movie]) -> some View {
         Section {
@@ -44,6 +49,16 @@ struct MoviesHomeView: View {
                         }
                     }
                 }.frame(height: 120)
+            }
+        }
+    }
+    
+    func genresList(genres: [Genre]) -> some View {
+        Section {
+            VStack {
+                ForEach(genres) { genre in
+                    Text(genre.name)
+                }
             }
         }
     }

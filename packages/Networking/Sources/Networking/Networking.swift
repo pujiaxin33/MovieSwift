@@ -15,8 +15,12 @@ public struct APIService {
     }
     
     public enum Endpoint: TargetType {
-        case popular, topRated, upcoming, trending
-        case nowPlaying(params: [String: String])
+        case popular(params: [String: Any])
+        case topRated(params: [String: Any])
+        case upcoming(params: [String: Any])
+        case trending(params: [String: Any])
+        case nowPlaying(params: [String: Any])
+        case genres(params: [String: Any])
         
 
         public var baseURL: URL {
@@ -34,6 +38,8 @@ public struct APIService {
                 return "movie/now_playing"
             case .trending:
                 return "trending/movie/day"
+            case .genres:
+                return "genre/movie/list"
             }
         }
         public var method: Moya.Method {
@@ -41,9 +47,12 @@ public struct APIService {
         }
         public var task: Task {
             switch self {
-            case .popular, .topRated, .upcoming, .trending:
-                return .requestPlain
-            case .nowPlaying(params: let params):
+            case .popular(params: let params),
+                    .topRated(params: let params),
+                    .upcoming(params: let params),
+                    .trending(params: let params),
+                    .nowPlaying(params: let params),
+                    .genres(params: let params):
                 return .requestParameters(parameters: mergeParameters(params), encoding: URLEncoding())
             }
         }

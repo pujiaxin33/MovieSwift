@@ -14,3 +14,7 @@ struct PaginatedResponse<T: Codable>: Codable {
     let total_pages: Int?
     let results: [T]
 }
+
+struct GenresResponse: Codable {
+    let genres: [Genre]
+}
