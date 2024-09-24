@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2B496922CA260AB009228E4 /* Integration in Frameworks */ = {isa = PBXBuildFile; productRef = B2B496912CA260AB009228E4 /* Integration */; };
 		B2C3B5932CA16C5A00D9C552 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3B5872CA16C5900D9C552 /* Review.swift */; };
 		B2C3B5942CA16C5A00D9C552 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3B5882CA16C5900D9C552 /* Video.swift */; };
 		B2C3B5952CA16C5A00D9C552 /* CustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3B5892CA16C5A00D9C552 /* CustomList.swift */; };
@@ -79,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2B496922CA260AB009228E4 /* Integration in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +227,9 @@
 			dependencies = (
 			);
 			name = SwiftMovieApp;
+			packageProductDependencies = (
+				B2B496912CA260AB009228E4 /* Integration */,
+			);
 			productName = SwiftMovieApp;
 			productReference = B2E571022CA1639C00185CB2 /* SwiftMovieApp.app */;
 			productType = "com.apple.product-type.application";
@@ -297,6 +302,9 @@
 				Base,
 			);
 			mainGroup = B2E570F92CA1639C00185CB2;
+			packageReferences = (
+				B2B496902CA260AB009228E4 /* XCLocalSwiftPackageReference "packages/Integration" */,
+			);
 			productRefGroup = B2E571032CA1639C00185CB2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -684,6 +692,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		B2B496902CA260AB009228E4 /* XCLocalSwiftPackageReference "packages/Integration" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = packages/Integration;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B2B496912CA260AB009228E4 /* Integration */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Integration;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B2E570FA2CA1639C00185CB2 /* Project object */;
 }
