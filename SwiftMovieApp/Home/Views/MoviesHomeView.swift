@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Networking
 
 struct MoviesHomeView: View {
     
@@ -13,36 +14,38 @@ struct MoviesHomeView: View {
     
     var body: some View {
         List {
-            ForEach(MoviesMenu.allCases, id: \.self) { type in
-                if let movies = viewModel.movies[type] {
-                    Section {
-                        VStack {
-                            header
-                            
-                            moviesList(movies: movies)
-                        }
-                    }
+            ForEach(MoviesMenu.allCases, id: \.self) { menu in
+                if let movies = viewModel.movies[menu] {
+                    moviesList(menu: menu, movies: movies)
                 }
             }
         }
     }
     
     
-    var header: some View {
-        Text("")
-    }
-    
-    func moviesList(movies: [Movie]) -> some View {
-        ScrollView(.horizontal) {
-            LazyHStack {
-                ForEach(movies) { movie in
-                    Text(movie.title)
-                        .frame(width: 50, height: 100)
-                        .background(Color.gray)
-                        .cornerRadius(5)
-                }
+    func moviesList(menu: MoviesMenu, movies: [Movie]) -> some View {
+        Section {
+            VStack {
+                Text(menu.title())
+                
+                ScrollView(.horizontal) {
+                    LazyHStack {
+                        ForEach(movies) { movie in
+                            if let path = movie.poster_path {
+                                AsyncImage(url: ImageService.posterUrl(path: path, size: .medium)) { image in
+                                    image.resizable()
+                                        .renderingMode(.original)
+                                        .posterStyle(loaded: true, size: .medium)
+                                } placeholder: {
+                                    Color.green.posterStyle(loaded: true, size: .medium)
+                                }
+
+                            }
+                        }
+                    }
+                }.frame(height: 120)
             }
-        }.frame(height: 120)
+        }
     }
 }
 
