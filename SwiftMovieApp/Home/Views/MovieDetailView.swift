@@ -48,6 +48,10 @@ struct MovieDetailView: View {
             if let cast = viewModel.cast {
                 castCrewListView(cast: cast)
             }
+            
+            if let movies = viewModel.similarMovies, !movies.isEmpty {
+                SimilarMoviesView(movies: movies)
+            }
         }
     }
     
