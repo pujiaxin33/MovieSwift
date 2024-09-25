@@ -58,6 +58,10 @@ struct MovieDetailView: View {
             if let movies = viewModel.recommendedMovies, !movies.isEmpty {
                 MoviesListCardView(title: "Recommended Movies", movies: movies)
             }
+            
+            if let images = viewModel.movie.images?.posters, !images.isEmpty {
+                MovieDetailPosterCardView(images: images)
+            }
         }
     }
 }
