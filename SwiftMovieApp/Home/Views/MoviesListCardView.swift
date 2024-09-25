@@ -8,14 +8,15 @@
 import SwiftUI
 import Networking
 
-struct SimilarMoviesView: View {
+struct MoviesListCardView: View {
+    let title: String
     let movies: [Movie]
     @Environment(\.navigation) var navigation
     
     var body: some View {
         VStack {
-            SeeAllHeaderView(title: "Similar Movies") { navi in
-                navi.path.append(MovieListPath(naviTitle: "Similar Movies", movies: movies))
+            SeeAllHeaderView(title: title) { navi in
+                navi.path.append(MovieListPath(naviTitle: title, movies: movies))
             }
             
             ScrollView(.horizontal) {
@@ -30,5 +31,5 @@ struct SimilarMoviesView: View {
 }
 
 #Preview {
-    SimilarMoviesView(movies: [sampleMovie])
+    MoviesListCardView(title: "Similar Movies", movies: [sampleMovie])
 }

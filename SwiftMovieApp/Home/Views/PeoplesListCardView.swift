@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PeopleHorizontalListView: View {
+struct PeoplesListCardView: View {
     let title: String
     let peoples: [People]
     
@@ -39,5 +39,5 @@ struct PeopleHorizontalListView: View {
 }
 
 #Preview {
-    PeopleHorizontalListView(title: "Cast", peoples: [])
+    PeoplesListCardView(title: "Cast", peoples: [])
 }

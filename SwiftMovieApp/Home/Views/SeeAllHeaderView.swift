@@ -17,6 +17,7 @@ struct SeeAllHeaderView: View {
     var body: some View {
         HStack {
             Text(title)
+                .layoutPriority(1)
             Button {
                 routeClosure(navigation)
             } label: {

@@ -47,12 +47,16 @@ struct MovieDetailView: View {
             }
             
             if let cast = viewModel.cast {
-                PeopleHorizontalListView(title: "Cast", peoples: cast.cast)
-                PeopleHorizontalListView(title: "Crew", peoples: cast.crew)
+                PeoplesListCardView(title: "Cast", peoples: cast.cast)
+                PeoplesListCardView(title: "Crew", peoples: cast.crew)
             }
             
             if let movies = viewModel.similarMovies, !movies.isEmpty {
-                SimilarMoviesView(movies: movies)
+                MoviesListCardView(title: "Similar Movies", movies: movies)
+            }
+            
+            if let movies = viewModel.recommendedMovies, !movies.isEmpty {
+                MoviesListCardView(title: "Recommended Movies", movies: movies)
             }
         }
     }
