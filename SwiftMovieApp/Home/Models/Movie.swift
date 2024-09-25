@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 //import Backend
 
-struct Movie: Codable, Identifiable {
+struct Movie: Codable, Identifiable, Hashable {
     let id: Int
     
     let original_title: String
@@ -51,16 +51,16 @@ struct Movie: Codable, Identifiable {
     var character: String?
     var department: String?
     
-    struct Keywords: Codable {
+    struct Keywords: Codable, Hashable {
         let keywords: [Keyword]?
     }
     
-    struct MovieImages: Codable {
+    struct MovieImages: Codable, Hashable {
         let posters: [ImageData]?
         let backdrops: [ImageData]?
     }
     
-    struct productionCountry: Codable, Identifiable {
+    struct productionCountry: Codable, Identifiable, Hashable {
         var id: String {
             name
         }

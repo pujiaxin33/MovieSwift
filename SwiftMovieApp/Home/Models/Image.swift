@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct ImageData: Codable, Identifiable {
+struct ImageData: Codable, Identifiable, Hashable {
     var id: String {
         file_path
     }

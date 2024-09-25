@@ -21,6 +21,7 @@ class MoviesHomeViewModel {
     }
     
     func loadData() {
+        
         let region = Locale.current.region?.identifier ?? "US"
         MoviesMenu.allCases.forEach { menu in
             if menu == .genres {
