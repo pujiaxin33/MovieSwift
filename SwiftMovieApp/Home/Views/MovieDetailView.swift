@@ -16,7 +16,9 @@ struct MovieDetailView: View {
     
     var body: some View {
         List {
-            header
+            headerSection
+            
+            bottomSection
         }
         .navigationTitle(viewModel.movie.title)
         .navigationDestination(for: [Review].self, destination: { (reviews) in
@@ -27,23 +29,21 @@ struct MovieDetailView: View {
         }
     }
     
-    var header: some View {
+    var headerSection: some View {
         Section {
             movieBasicInfoHeader
             
-            if let reviews = viewModel.reviews, !reviews.isEmpty {
-                HStack {
-                    Text("\(reviews.count) reviews")
-                    Spacer()
-                    Image(systemName: "arrow.right")
-                }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    navigation.path.append(reviews)
-                }
-            }
+            reviewsView
             
             overviewHeader
+        }
+    }
+    
+    var bottomSection: some View {
+        Section {
+            if let keywords = viewModel.movie.keywords?.keywords, !keywords.isEmpty {
+                keyboardView(keywords: keywords)
+            }
         }
     }
     
@@ -88,6 +88,22 @@ struct MovieDetailView: View {
         }.listRowInsets(EdgeInsets())
     }
     
+    var reviewsView: some View {
+        Group {
+            if let reviews = viewModel.reviews, !reviews.isEmpty {
+                HStack {
+                    Text("\(reviews.count) reviews")
+                    Spacer()
+                    Image(systemName: "arrow.right")
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    navigation.path.append(reviews)
+                }
+            }
+        }
+    }
+    
     var overviewHeader: some View {
         VStack(alignment: .leading) {
             Text("Overview").font(.system(size: 15, weight: .bold))
@@ -101,6 +117,34 @@ struct MovieDetailView: View {
             }
             .foregroundStyle(Color.blue)
             .buttonStyle(PlainButtonStyle())
+        }
+    }
+    
+    func keyboardView(keywords: [Keyword]) -> some View {
+        VStack {
+            Text("Keywords")
+            
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(keywords) { keyword in
+                        Label(keyword.name, systemImage: "arrow.right")
+                            .frame(height: 50)
+                            .padding(.horizontal, 10)
+                            .labelStyle(RightIconLabelStyle())
+                            .background(Color.gray)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                    }
+                }
+            }.frame(height: 100)
+        }
+    }
+}
+
+struct RightIconLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(alignment: .center, spacing: 8) {
+            configuration.title
+            configuration.icon
         }
     }
 }
