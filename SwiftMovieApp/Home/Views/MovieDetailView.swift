@@ -8,21 +8,40 @@
 import SwiftUI
 import Networking
 
-struct MovieDetail: View {
-    let movie: Movie
+struct MovieDetailView: View {
+    @State var viewModel: MovieDetailViewModel
     
     @State private var isOverviewFolded: Bool = true
+    @Environment(\.navigation) private var navigation
     
     var body: some View {
         List {
             header
         }
-        .navigationTitle(movie.title)
+        .navigationTitle(viewModel.movie.title)
+        .navigationDestination(for: [Review].self, destination: { (reviews) in
+            MovieReviewsView(reviews: reviews)
+        })
+        .onAppear {
+            viewModel.loadData()
+        }
     }
     
     var header: some View {
         Section {
             movieBasicInfoHeader
+            
+            if let reviews = viewModel.reviews, !reviews.isEmpty {
+                HStack {
+                    Text("\(reviews.count) reviews")
+                    Spacer()
+                    Image(systemName: "arrow.right")
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    navigation.path.append(reviews)
+                }
+            }
             
             overviewHeader
         }
@@ -34,7 +53,7 @@ struct MovieDetail: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    if let path = movie.poster_path {
+                    if let path = viewModel.movie.poster_path {
                         AsyncImage(url: ImageService.posterUrl(path: path, size: .medium)) { image in
                             image.resizable()
                                 .renderingMode(.original)
@@ -45,15 +64,15 @@ struct MovieDetail: View {
                     }
                     
                     VStack(alignment: .leading) {
-                        Text(movie.yearDurationStatusDisplayTitle).foregroundStyle(Color.red).background(Color.cyan).font(.system(size: 12))
-                        if let countryName = movie.production_countries?.first?.name {
+                        Text(viewModel.movie.yearDurationStatusDisplayTitle).foregroundStyle(Color.red).background(Color.cyan).font(.system(size: 12))
+                        if let countryName = viewModel.movie.production_countries?.first?.name {
                             Text(countryName)
                         }
-                        Text("\(movie.voteAverageText) \(movie.voteCountText)")
+                        Text("\(viewModel.movie.voteAverageText) \(viewModel.movie.voteCountText)")
                     }
                 }
                 
-                if let genres = movie.genres {
+                if let genres = viewModel.movie.genres {
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(genres) { genre in
@@ -73,17 +92,19 @@ struct MovieDetail: View {
         VStack(alignment: .leading) {
             Text("Overview").font(.system(size: 15, weight: .bold))
             
-            Text(movie.overview)
+            Text(viewModel.movie.overview)
                 .foregroundStyle(Color.gray.opacity(0.5))
                 .lineLimit(isOverviewFolded ? 4 : nil)
             
             Button(isOverviewFolded ? "Readmore" : "Less") {
                 isOverviewFolded.toggle()
-            }.foregroundStyle(Color.blue)
+            }
+            .foregroundStyle(Color.blue)
+            .buttonStyle(PlainButtonStyle())
         }
     }
 }
 
 #Preview {
-    MovieDetail(movie: sampleMovie)
+    MovieDetailView(viewModel: .init(movie: sampleMovie))
 }

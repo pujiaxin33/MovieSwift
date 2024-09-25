@@ -10,10 +10,11 @@ import Networking
 
 struct MoviesHomeView: View {
     
-    let viewModel: MoviesHomeViewModel
+    @State var viewModel: MoviesHomeViewModel
+    @State private var navigation = Navigation()
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigation.path) {
             List {
                 ForEach(MoviesMenu.allCases, id: \.self) { menu in
                     if menu == .genres {
@@ -27,11 +28,11 @@ struct MoviesHomeView: View {
                     }
                 }
             }.navigationDestination(for: Movie.self) { movie in
-                MovieDetail(movie: movie)
+                MovieDetailView(viewModel: .init(movie: movie))
             }
             .navigationTitle("Movies")
             .navigationBarTitleDisplayMode(.automatic)
-        }
+        }.environment(\.navigation, navigation)
         
     }
     
@@ -69,6 +70,22 @@ struct MoviesHomeView: View {
                 }
             }
         }
+    }
+}
+
+@Observable
+final class Navigation {
+    var path = NavigationPath()
+}
+
+extension EnvironmentValues {
+    private struct NavigationKey: EnvironmentKey {
+        static let defaultValue = Navigation()
+    }
+
+    var navigation: Navigation {
+        get { self[NavigationKey.self] }
+        set { self[NavigationKey.self] = newValue }
     }
 }
 

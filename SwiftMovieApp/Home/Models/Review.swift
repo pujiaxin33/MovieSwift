@@ -9,8 +9,10 @@
 import Foundation
 import SwiftUI
 
-struct Review: Codable, Identifiable {
+struct Review: Codable, Identifiable, Hashable {
     let id: String
     let author: String
     let content: String
 }
+
+let sampleReviews: [Review] = [.init(id: "123", author: "abc", content: "safaskdlfsldkkafjsdjfl")]

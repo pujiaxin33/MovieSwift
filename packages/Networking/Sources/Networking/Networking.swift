@@ -21,6 +21,20 @@ public struct APIService {
         case trending(params: [String: Any])
         case nowPlaying(params: [String: Any])
         case genres(params: [String: Any])
+        case movieDetail(movie: Int, params: [String: Any])
+        case recommended(movie: Int, params: [String: Any])
+        case similar(movie: Int, params: [String: Any])
+        case videos(movie: Int, params: [String: Any])
+        case credits(movie: Int, params: [String: Any])
+        case review(movie: Int, params: [String: Any])
+        case searchMovie(params: [String: Any])
+        case searchKeyword(params: [String: Any])
+        case searchPerson(params: [String: Any])
+        case popularPersons(params: [String: Any])
+        case personDetail(person: Int, params: [String: Any])
+        case personMovieCredits(person: Int, params: [String: Any])
+        case personImages(person: Int, params: [String: Any])
+        case discover(params: [String: Any])
         
 
         public var baseURL: URL {
@@ -40,6 +54,34 @@ public struct APIService {
                 return "trending/movie/day"
             case .genres:
                 return "genre/movie/list"
+            case let .movieDetail(movie, _):
+                return "movie/\(String(movie))"
+            case let .videos(movie, _):
+                return "movie/\(String(movie))/videos"
+            case let .personDetail(person, _):
+                return "person/\(String(person))"
+            case let .credits(movie, _):
+                return "movie/\(String(movie))/credits"
+            case let .review(movie, _):
+                return "movie/\(String(movie))/reviews"
+            case let .recommended(movie, _):
+                return "movie/\(String(movie))/recommendations"
+            case let .similar(movie, _):
+                return "movie/\(String(movie))/similar"
+            case let .personMovieCredits(person, _):
+                return "person/\(person)/movie_credits"
+            case let .personImages(person, _):
+                return "person/\(person)/images"
+            case .searchMovie:
+                return "search/movie"
+            case .searchKeyword:
+                return "search/keyword"
+            case .searchPerson:
+                return "search/person"
+            case .discover:
+                return "discover/movie"
+            case .popularPersons:
+                return "person/popular"
             }
         }
         public var method: Moya.Method {
@@ -52,7 +94,22 @@ public struct APIService {
                     .upcoming(params: let params),
                     .trending(params: let params),
                     .nowPlaying(params: let params),
-                    .genres(params: let params):
+                    .genres(params: let params),
+                    .searchMovie(params: let params),
+                    .searchKeyword(params: let params),
+                    .searchPerson(params: let params),
+                    .discover(params: let params):
+                return .requestParameters(parameters: mergeParameters(params), encoding: URLEncoding())
+            case .movieDetail(_, let params),
+                    .videos(_, let params),
+                    .personDetail(_, let params),
+                    .credits(_, let params),
+                    .review(_, let params),
+                    .recommended(_, let params),
+                    .similar(_, let params),
+                    .personMovieCredits(_, let params),
+                    .personImages(_, let params),
+                    .popularPersons(params: let params):
                 return .requestParameters(parameters: mergeParameters(params), encoding: URLEncoding())
             }
         }
