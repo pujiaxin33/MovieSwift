@@ -28,3 +28,8 @@ struct MovieListPath: Hashable {
     let naviTitle: String
     let movies: [Movie]
 }
+
+struct PeopleListPath: Hashable {
+    let naviTitle: String
+    let peoples: [People]
+}

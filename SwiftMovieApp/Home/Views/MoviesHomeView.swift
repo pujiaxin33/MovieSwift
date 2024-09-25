@@ -33,6 +33,12 @@ struct MoviesHomeView: View {
             .navigationDestination(for: MovieListPath.self, destination: { path in
                 MoviesListView(naviTitle: path.naviTitle, movies: path.movies)
             })
+            .navigationDestination(for: PeopleListPath.self, destination: { path in
+                PeopleListView(naviTitle: path.naviTitle, peoples: path.peoples)
+            })
+            .navigationDestination(for: People.self, destination: { people in
+                PeopleDetailView()
+            })
             .navigationTitle("Movies")
             .navigationBarTitleDisplayMode(.automatic)
         }.environment(\.navigation, navigation)

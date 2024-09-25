@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct People: Codable, Identifiable {
+struct People: Codable, Identifiable, Hashable {
     let id: Int
     let name: String
     var character: String?
@@ -29,7 +29,7 @@ struct People: Codable, Identifiable {
     
     var images: [ImageData]?
     
-    struct KnownFor: Codable, Identifiable {
+    struct KnownFor: Codable, Identifiable, Hashable {
         let id: Int
         let original_title: String?
         let poster_path: String?

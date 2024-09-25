@@ -141,50 +141,9 @@ struct MovieDetailView: View {
     
     func castCrewListView(cast: CastResponse) -> some View {
         VStack {
-            VStack {
-                Text("Cast")
-                
-                ScrollView(.horizontal) {
-                    LazyHStack {
-                        ForEach(cast.cast) { people in
-                            VStack {
-                                MoviePosterView(path: people.profile_path, urlSize: .medium, size: .medium)
-                                Text(people.name)
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                    .lineLimit(1)
-                                Text(people.character ?? people.department ?? "")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                    .lineLimit(1)
-                            }
-                        }
-                    }
-                }
-            }
+            PeopleHorizontalListView(title: "Cast", peoples: cast.cast)
             
-            VStack {
-                Text("Cew")
-                
-                ScrollView(.horizontal) {
-                    LazyHStack {
-                        ForEach(cast.crew) { people in
-                            VStack {
-                                MoviePosterView(path: people.profile_path, urlSize: .cast, size: .medium)
-                                
-                                Text(people.name)
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                    .lineLimit(1)
-                                Text(people.character ?? people.department ?? "")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                    .lineLimit(1)
-                            }
-                        }
-                    }
-                }
-            }
+            PeopleHorizontalListView(title: "Crew", peoples: cast.crew)
         }
     }
 }
