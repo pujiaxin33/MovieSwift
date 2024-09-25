@@ -29,6 +29,8 @@ struct MoviesHomeView: View {
             }.navigationDestination(for: Movie.self) { movie in
                 MovieDetail(movie: movie)
             }
+            .navigationTitle("Movies")
+            .navigationBarTitleDisplayMode(.automatic)
         }
         
     }
