@@ -61,15 +61,7 @@ struct MovieDetailView: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    if let path = viewModel.movie.poster_path {
-                        AsyncImage(url: ImageService.posterUrl(path: path, size: .medium)) { image in
-                            image.resizable()
-                                .renderingMode(.original)
-                                .posterStyle(loaded: true, size: .medium)
-                        } placeholder: {
-                            Color.green.posterStyle(loaded: true, size: .medium)
-                        }
-                    }
+                    MoviePosterView(path: viewModel.movie.poster_path, urlSize: .medium, size: .medium)
                     
                     VStack(alignment: .leading) {
                         Text(viewModel.movie.yearDurationStatusDisplayTitle).foregroundStyle(Color.red).background(Color.cyan).font(.system(size: 12))
@@ -156,15 +148,7 @@ struct MovieDetailView: View {
                     LazyHStack {
                         ForEach(cast.cast) { people in
                             VStack {
-                                if let path = people.profile_path {
-                                    AsyncImage(url: ImageService.posterUrl(path: path, size: .cast)) { image in
-                                        image.resizable()
-                                            .renderingMode(.original)
-                                            .posterStyle(loaded: true, size: .medium)
-                                    } placeholder: {
-                                        Color.green.posterStyle(loaded: true, size: .medium)
-                                    }
-                                }
+                                MoviePosterView(path: people.profile_path, urlSize: .medium, size: .medium)
                                 Text(people.name)
                                     .font(.headline)
                                     .foregroundColor(.primary)
@@ -186,15 +170,8 @@ struct MovieDetailView: View {
                     LazyHStack {
                         ForEach(cast.crew) { people in
                             VStack {
-                                if let path = people.profile_path {
-                                    AsyncImage(url: ImageService.posterUrl(path: path, size: .cast)) { image in
-                                        image.resizable()
-                                            .renderingMode(.original)
-                                            .posterStyle(loaded: true, size: .medium)
-                                    } placeholder: {
-                                        Color.green.posterStyle(loaded: true, size: .medium)
-                                    }
-                                }
+                                MoviePosterView(path: people.profile_path, urlSize: .cast, size: .medium)
+                                
                                 Text(people.name)
                                     .font(.headline)
                                     .foregroundColor(.primary)

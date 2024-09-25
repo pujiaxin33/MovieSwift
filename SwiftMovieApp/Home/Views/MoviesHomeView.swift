@@ -30,6 +30,9 @@ struct MoviesHomeView: View {
             }.navigationDestination(for: Movie.self) { movie in
                 MovieDetailView(viewModel: .init(movie: movie))
             }
+            .navigationDestination(for: MovieListPath.self, destination: { path in
+                MoviesListView(naviTitle: path.naviTitle, movies: path.movies)
+            })
             .navigationTitle("Movies")
             .navigationBarTitleDisplayMode(.automatic)
         }.environment(\.navigation, navigation)
@@ -44,16 +47,8 @@ struct MoviesHomeView: View {
                 ScrollView(.horizontal) {
                     LazyHStack {
                         ForEach(movies) { movie in
-                            if let path = movie.poster_path {
-                                NavigationLink(value: movie) {
-                                    AsyncImage(url: ImageService.posterUrl(path: path, size: .medium)) { image in
-                                        image.resizable()
-                                            .renderingMode(.original)
-                                            .posterStyle(loaded: true, size: .medium)
-                                    } placeholder: {
-                                        Color.green.posterStyle(loaded: true, size: .medium)
-                                    }
-                                }
+                            NavigationLink(value: movie) {
+                                MoviePosterView(path: movie.poster_path, urlSize: .medium, size: .medium)
                             }
                         }
                     }
@@ -70,22 +65,6 @@ struct MoviesHomeView: View {
                 }
             }
         }
-    }
-}
-
-@Observable
-final class Navigation {
-    var path = NavigationPath()
-}
-
-extension EnvironmentValues {
-    private struct NavigationKey: EnvironmentKey {
-        static let defaultValue = Navigation()
-    }
-
-    var navigation: Navigation {
-        get { self[NavigationKey.self] }
-        set { self[NavigationKey.self] = newValue }
     }
 }
 

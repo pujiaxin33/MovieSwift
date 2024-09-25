@@ -14,31 +14,14 @@ struct SimilarMoviesView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Similar Movies")
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Text("See all")
-                        Spacer()
-                        Image(systemName: "arrow.right")
-                    }
-                }
+            SeeAllHeaderView(title: "Similar Movies") { navi in
+                navi.path.append(MovieListPath(naviTitle: "Similar Movies", movies: movies))
             }
             
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 15) {
                     ForEach(movies) { movie in
-                        if let path = movie.poster_path {
-                            AsyncImage(url: ImageService.posterUrl(path: path, size: .medium)) { image in
-                                image.resizable()
-                                    .renderingMode(.original)
-                                    .posterStyle(loaded: true, size: .medium)
-                            } placeholder: {
-                                Color.green.posterStyle(loaded: true, size: .medium)
-                            }
-                        }
+                        MoviePosterView(path: movie.poster_path, urlSize: .medium, size: .medium)
                     }
                 }
             }
