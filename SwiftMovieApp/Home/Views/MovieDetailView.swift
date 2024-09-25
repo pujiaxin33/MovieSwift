@@ -62,6 +62,11 @@ struct MovieDetailView: View {
             if let images = viewModel.movie.images?.posters, !images.isEmpty {
                 MovieDetailPosterCardView(images: images)
             }
+            
+            if let images = viewModel.movie.images?.backdrops, !images.isEmpty {
+                MovieDetailbackdropCardView(images: images)
+            }
+            
         }
     }
 }
