@@ -44,6 +44,10 @@ struct MovieDetailView: View {
             if let keywords = viewModel.movie.keywords?.keywords, !keywords.isEmpty {
                 keyboardView(keywords: keywords)
             }
+            
+            if let cast = viewModel.cast {
+                castCrewListView(cast: cast)
+            }
         }
     }
     
@@ -128,14 +132,78 @@ struct MovieDetailView: View {
                 HStack {
                     ForEach(keywords) { keyword in
                         Label(keyword.name, systemImage: "arrow.right")
-                            .frame(height: 50)
+                            .frame(height: 30)
                             .padding(.horizontal, 10)
                             .labelStyle(RightIconLabelStyle())
                             .background(Color.gray)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
                     }
                 }
-            }.frame(height: 100)
+            }.frame(height: 50)
+        }
+    }
+    
+    func castCrewListView(cast: CastResponse) -> some View {
+        VStack {
+            VStack {
+                Text("Cast")
+                
+                ScrollView(.horizontal) {
+                    LazyHStack {
+                        ForEach(cast.cast) { people in
+                            VStack {
+                                if let path = people.profile_path {
+                                    AsyncImage(url: ImageService.posterUrl(path: path, size: .cast)) { image in
+                                        image.resizable()
+                                            .renderingMode(.original)
+                                            .posterStyle(loaded: true, size: .medium)
+                                    } placeholder: {
+                                        Color.green.posterStyle(loaded: true, size: .medium)
+                                    }
+                                }
+                                Text(people.name)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                    .lineLimit(1)
+                                Text(people.character ?? people.department ?? "")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                    .lineLimit(1)
+                            }
+                        }
+                    }
+                }
+            }
+            
+            VStack {
+                Text("Cew")
+                
+                ScrollView(.horizontal) {
+                    LazyHStack {
+                        ForEach(cast.crew) { people in
+                            VStack {
+                                if let path = people.profile_path {
+                                    AsyncImage(url: ImageService.posterUrl(path: path, size: .cast)) { image in
+                                        image.resizable()
+                                            .renderingMode(.original)
+                                            .posterStyle(loaded: true, size: .medium)
+                                    } placeholder: {
+                                        Color.green.posterStyle(loaded: true, size: .medium)
+                                    }
+                                }
+                                Text(people.name)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                    .lineLimit(1)
+                                Text(people.character ?? people.department ?? "")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                    .lineLimit(1)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
