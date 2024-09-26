@@ -16,8 +16,8 @@ struct PeopleDetailView: View {
             basicInfoSection
             
             if let movieByYears = viewModel.movieByYears {
-                ForEach(Array(movieByYears.keys), id: \.self) { year in
-                    moviesSection(year: year, movies: movieByYears[year]!)
+                ForEach(Array(movieByYears), id: \.self) { data in
+                    moviesSection(year: data.year, movies: data.movies)
                 }
             }
             

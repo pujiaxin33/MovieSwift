@@ -32,6 +32,7 @@ struct FanClubView: View {
                         }
                     }
                 }
+                //todo: add load more
             }
             .registerNavigationDestinations()
             .navigationTitle("Fan Club")
