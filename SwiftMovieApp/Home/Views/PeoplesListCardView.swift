@@ -22,10 +22,12 @@ struct PeoplesListCardView: View {
                     ForEach(peoples) { people in
                         VStack {
                             MoviePosterView(path: people.profile_path, urlSize: .medium, size: .medium)
+                            
                             Text(people.name)
                                 .font(.headline)
                                 .foregroundColor(.primary)
                                 .lineLimit(1)
+                            
                             Text(people.character ?? people.department ?? "")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)

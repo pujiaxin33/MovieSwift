@@ -27,26 +27,8 @@ struct MoviesHomeView: View {
                         }
                     }
                 }
-            }.navigationDestination(for: Movie.self) { movie in
-                MovieDetailView(viewModel: .init(movie: movie))
-                    .toolbar(.hidden, for: .tabBar)
             }
-            .navigationDestination(for: MovieListPath.self, destination: { path in
-                MoviesListView(naviTitle: path.naviTitle, movies: path.movies)
-                    .toolbar(.hidden, for: .tabBar)
-            })
-            .navigationDestination(for: PeopleListPath.self, destination: { path in
-                PeopleListView(naviTitle: path.naviTitle, peoples: path.peoples)
-                    .toolbar(.hidden, for: .tabBar)
-            })
-            .navigationDestination(for: People.self, destination: { people in
-                PeopleDetailView()
-                    .toolbar(.hidden, for: .tabBar)
-            })
-            .navigationDestination(for: Genre.self, destination: { genre in
-                MoviesGenreListView(viewModel: .init(genre: genre))
-                    .toolbar(.hidden, for: .tabBar)
-            })
+            .registerNavigationDestinations()
             .navigationTitle("Movies")
             .navigationBarTitleDisplayMode(.automatic)
             .onAppear {

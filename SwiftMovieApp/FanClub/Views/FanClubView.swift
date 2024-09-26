@@ -22,12 +22,13 @@ struct FanClubView: View {
                     }
                 }
             }
+            .registerNavigationDestinations()
             .navigationTitle("Fan Club")
             .navigationBarTitleDisplayMode(.automatic)
             .onAppear {
                 viewModel.loadData()
             }
-        }
+        }.environment(\.navigation, navigation)
     }
 }
 
