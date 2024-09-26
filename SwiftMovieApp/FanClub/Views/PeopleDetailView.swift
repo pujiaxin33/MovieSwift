@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PeopleDetailView: View {
     let viewModel: PeopleDetailViewModel
+    @Environment(\.favoritePeopleManager) var favoritePeopleManager: FavoritePeopleManager
     
     var body: some View {
         List {
@@ -22,6 +23,16 @@ struct PeopleDetailView: View {
             
         }
         .navigationTitle(viewModel.people.name)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    favoritePeopleManager.insert(viewModel.people)
+                } label: {
+                    Image(systemName: viewModel.isFavoritePeople(people: viewModel.people, favoritePeoples: favoritePeopleManager.peoples) ? "star.circle.fill" : "star.circle")
+                }
+
+            }
+        }
         .onAppear {
             viewModel.loadData()
         }

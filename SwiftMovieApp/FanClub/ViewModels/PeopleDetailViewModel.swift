@@ -79,6 +79,10 @@ class PeopleDetailViewModel {
         people.place_of_birth != nil ||
         people.deathDay != nil
     }
+    
+    func isFavoritePeople(people: People, favoritePeoples: [People]) -> Bool {
+        return favoritePeoples.contains(people)
+    }
 }
 
 struct ImagesResponse: Codable {
