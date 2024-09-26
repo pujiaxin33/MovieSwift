@@ -39,34 +39,41 @@ struct MoviesHomeView: View {
             .navigationDestination(for: People.self, destination: { people in
                 PeopleDetailView()
             })
+            .navigationDestination(for: Genre.self, destination: { genre in
+                MoviesGenreListView(viewModel: .init(genre: genre))
+            })
             .navigationTitle("Movies")
             .navigationBarTitleDisplayMode(.automatic)
+            .onAppear {
+                viewModel.loadData()
+            }
         }.environment(\.navigation, navigation)
         
     }
     
     func moviesList(menu: MoviesMenu, movies: [Movie]) -> some View {
-        Section {
-            VStack {
+        Group {
+            VStack(alignment: .leading) {
                 Text(menu.title())
                 
                 ScrollView(.horizontal) {
-                    LazyHStack {
+                    LazyHStack(spacing: 15) {
                         ForEach(movies) { movie in
-                            NavigationLink(value: movie) {
-                                MoviePosterView(path: movie.poster_path, urlSize: .medium, size: .medium)
-                            }
+                            MoviePosterView(path: movie.poster_path, urlSize: .medium, size: .medium)
+                                .onTapGesture {
+                                    navigation.path.append(movie)
+                                }
                         }
                     }
-                }.frame(height: 120)
+                }
             }
         }
     }
     
     func genresList(genres: [Genre]) -> some View {
-        Section {
-            VStack {
-                ForEach(genres) { genre in
+        Group {
+            ForEach(genres) { genre in
+                NavigationLink(value: genre) {
                     Text(genre.name)
                 }
             }

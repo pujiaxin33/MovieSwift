@@ -23,15 +23,11 @@ struct MovieBackdropImage: View {
                     .renderingMode(.original)
                     .frame(width: 280, height: displayMode == .normal ? 168 : 50)
             } placeholder: {
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .opacity(0.1)
+                ProgressView()
                     .frame(width: 280, height: displayMode == .normal ? 168 : 50)
             }
         } else {
-            Rectangle()
-                .foregroundColor(.gray)
-                .opacity(0.1)
+            ProgressView()
                 .frame(width: 280, height: displayMode == .normal ? 168 : 50)
         }
     }

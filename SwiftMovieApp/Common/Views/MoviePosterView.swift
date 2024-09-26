@@ -20,12 +20,12 @@ struct MoviePosterView: View {
                     .renderingMode(.original)
                     .posterStyle(loaded: true, size: size)
             } placeholder: {
-                Color.green
-                    .posterStyle(loaded: true, size: size)
+                ProgressView()
+                    .frame(width: size.width(), height: size.height())
             }
         } else {
-            Color.green
-                .posterStyle(loaded: true, size: size)
+            ProgressView()
+                .frame(width: size.width(), height: size.height())
         }
     }
 }

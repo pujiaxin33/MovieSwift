@@ -17,11 +17,9 @@ class MoviesHomeViewModel {
     private var bags: Set<AnyCancellable> = .init()
     
     init() {
-        loadData()
     }
     
     func loadData() {
-        
         let region = Locale.current.region?.identifier ?? "US"
         MoviesMenu.allCases.forEach { menu in
             if menu == .genres {
