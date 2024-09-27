@@ -10,11 +10,12 @@ import SwiftUI
 @main
 struct SwiftMovieAppApp: App {
     @State var appConfiguration: AppConfiguration = .init()
+    private let coordinator: AppCoordinator = .init()
     
     var body: some Scene {
         WindowGroup {
             TabView {
-                MoviesHomeView(viewModel: .init()).tabItem {
+                coordinator.makeMoviesHomeView().tabItem {
                     Label("Home", systemImage: "movieclapper.fill")
                 }
                 
@@ -22,7 +23,7 @@ struct SwiftMovieAppApp: App {
                     Label("Discover", systemImage: "lanyardcard.fill")
                 }
                 
-                FanClubView(viewModel: .init()).tabItem {
+                coordinator.makeFanClubView().tabItem {
                     Label("Fan Club", systemImage: "star.circle.fill")
                 }
                 

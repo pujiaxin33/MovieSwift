@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct FanClubView: View {
-    let viewModel: FanClubViewModel
+    let coordinator: FanClubCoordinator
+    @State var viewModel: FanClubViewModel
     @State private var navigation: Navigation = .init()
     @State private var favoritePeopleManager: FavoritePeopleManager = .init()
     
@@ -34,7 +35,7 @@ struct FanClubView: View {
                 }
                 //todo: add load more
             }
-            .registerNavigationDestinations()
+            .registerFanClubNavigationDestinations(with: coordinator)
             .navigationTitle("Fan Club")
             .navigationBarTitleDisplayMode(.automatic)
             .onAppear {
@@ -73,8 +74,4 @@ extension EnvironmentValues {
             return self[FavoritePeopleManagerKey.self]
         }
     }
-}
-
-#Preview {
-    FanClubView(viewModel: .init())
 }

@@ -11,18 +11,20 @@ import Networking
 
 @Observable
 class PeopleDetailViewModel {
+    let repository: PeopleRepository
     var people: People
     var movieByYears: [MoviesInYear]?
     private var imagesResponse: ImagesResponse?
     private var peopleCreditsResponse: PeopleCreditsResponse?
     private var bags: Set<AnyCancellable> = .init()
     
-    init(people: People) {
+    init(repository: PeopleRepository, people: People) {
+        self.repository = repository
         self.people = people
     }
     
     func loadData() {
-        APIService.shared.request(endpoint: .personDetail(person: people.id, params: [:]))
+        repository.fetchPersonDetail(id: people.id)
             .sink { _ in
                 
             } receiveValue: { (data: People) in
@@ -30,7 +32,7 @@ class PeopleDetailViewModel {
                 self.refreshData()
             }.store(in: &bags)
 
-        APIService.shared.request(endpoint: .personImages(person: people.id, params: [:]))
+        repository.fetchPersonImages(id: people.id)
             .sink { _ in
                 
             } receiveValue: { (data: ImagesResponse) in
@@ -38,7 +40,7 @@ class PeopleDetailViewModel {
                 self.refreshData()
             }.store(in: &bags)
         
-        APIService.shared.request(endpoint: .personMovieCredits(person: people.id, params: [:]))
+        repository.fetchPersonMovieCredits(id: people.id)
             .sink { _ in
                 
             } receiveValue: { (data: PeopleCreditsResponse) in

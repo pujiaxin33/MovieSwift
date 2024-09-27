@@ -11,6 +11,7 @@ import Combine
 
 @Observable
 class MovieDetailViewModel {
+    let repository: MoviesHomeRepository
     var movie: Movie
     var cast: CastResponse?
     var recommendedMovies: [Movie]?
@@ -19,14 +20,15 @@ class MovieDetailViewModel {
     var videos: [Video]?
     private var bags: Set<AnyCancellable> = .init()
     
-    init(movie: Movie) {
+    init(repository: MoviesHomeRepository, movie: Movie) {
+        self.repository = repository
         self.movie = movie
     }
     
     func loadData() {
         let params = ["append_to_response": "keywords,images",
                       "include_image_language": "\(Locale.current.language.languageCode?.identifier ?? "en"),en,null"]
-        APIService.shared.request(endpoint: .movieDetail(movie: movie.id, params: params)).sink { completion in
+        repository.fetchMovieDetail(id: movie.id, params: params).sink { completion in
             switch completion {
             case .finished:
                 break
@@ -37,7 +39,7 @@ class MovieDetailViewModel {
             self.movie = data
         }.store(in: &bags)
         
-        APIService.shared.request(endpoint: .credits(movie: movie.id, params: [:]))
+        repository.fetchMovieCredits(id: movie.id)
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -49,7 +51,7 @@ class MovieDetailViewModel {
                 self.cast = data
             }.store(in: &bags)
 
-        APIService.shared.request(endpoint: .recommended(movie: movie.id, params: [:]))
+        repository.fetchRecommendedMovies(id:  movie.id)
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -61,7 +63,7 @@ class MovieDetailViewModel {
                 self.recommendedMovies = data.results
             }.store(in: &bags)
         
-        APIService.shared.request(endpoint: .similar(movie: movie.id, params: [:]))
+        repository.fetchSimilarMovies(id:  movie.id)
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -73,7 +75,7 @@ class MovieDetailViewModel {
                 self.similarMovies = data.results
             }.store(in: &bags)
         
-        APIService.shared.request(endpoint: .review(movie: movie.id, params: ["language": Locale.current.language.languageCode?.identifier ?? "zh-CN"]))
+        repository.fetchMovieReviews(id:  movie.id, params: ["language": Locale.current.language.languageCode?.identifier ?? "zh-CN"])
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -85,7 +87,7 @@ class MovieDetailViewModel {
                 self.reviews = sampleReviews
             }.store(in: &bags)
         
-        APIService.shared.request(endpoint: .videos(movie: movie.id, params: [:]))
+        repository.fetchMovieVideos(id: movie.id)
             .sink { completion in
                 switch completion {
                 case .finished:

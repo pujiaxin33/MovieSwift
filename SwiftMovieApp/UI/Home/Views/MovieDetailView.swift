@@ -79,7 +79,3 @@ struct RightIconLabelStyle: LabelStyle {
         }
     }
 }
-
-#Preview {
-    MovieDetailView(viewModel: .init(movie: sampleMovie))
-}

@@ -11,19 +11,21 @@ import Combine
 
 @Observable
 class MoviesHomeViewModel {
+    let repository: MoviesHomeRepository
     var movies: [MoviesMenu : [Movie]] = [:]
     var genres: [Genre] = []
     
     private var bags: Set<AnyCancellable> = .init()
     
-    init() {
+    init(repository: MoviesHomeRepository) {
+        self.repository = repository
     }
     
     func loadData() {
         let region = Locale.current.region?.identifier ?? "US"
         MoviesMenu.allCases.forEach { menu in
             if menu == .genres {
-                APIService.shared.request(endpoint: menu.endpoint(params: ["page": "1", "region": region])).sink { completion in
+                repository.fetchGenres(params: ["page": "1", "region": region]).sink { completion in
                     switch completion {
                     case .finished:
                         break
@@ -34,7 +36,7 @@ class MoviesHomeViewModel {
                     self?.genres = data.genres
                 }.store(in: &bags)
             } else {
-                APIService.shared.request(endpoint: menu.endpoint(params: ["page": "1", "region": region])).sink { completion in
+                repository.fetchMovies(menu: menu, params: ["page": "1", "region": region]).sink { completion in
                     switch completion {
                     case .finished:
                         break

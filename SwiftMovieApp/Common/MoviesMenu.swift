@@ -22,14 +22,14 @@ enum MoviesMenu: Int, CaseIterable {
         }
     }
     
-    func endpoint(params: [String: Any]) -> APIService.Endpoint {
+    func endpoint(params: [String: Any]) -> Endpoint {
         switch self {
-        case .popular: return APIService.Endpoint.popular(params: params)
-        case .topRated: return APIService.Endpoint.topRated(params: params)
-        case .upcoming: return APIService.Endpoint.upcoming(params: params)
-        case .nowPlaying: return APIService.Endpoint.nowPlaying(params: params)
-        case .trending: return APIService.Endpoint.trending(params: params)
-        case .genres: return APIService.Endpoint.genres(params: params)
+        case .popular: return Endpoint.popular(params: params)
+        case .topRated: return Endpoint.topRated(params: params)
+        case .upcoming: return Endpoint.upcoming(params: params)
+        case .nowPlaying: return Endpoint.nowPlaying(params: params)
+        case .trending: return Endpoint.trending(params: params)
+        case .genres: return Endpoint.genres(params: params)
         }
     }
 }

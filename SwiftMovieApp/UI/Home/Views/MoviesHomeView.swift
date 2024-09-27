@@ -10,6 +10,7 @@ import Networking
 
 struct MoviesHomeView: View {
     
+    let coordinator: MoviesHomeCoordinator
     @State var viewModel: MoviesHomeViewModel
     @State private var navigation = Navigation()
     
@@ -28,7 +29,7 @@ struct MoviesHomeView: View {
                     }
                 }
             }
-            .registerNavigationDestinations()
+            .registerMoviesNavigationDestinations(with: coordinator)
             .navigationTitle("Movies")
             .navigationBarTitleDisplayMode(.automatic)
             .onAppear {
@@ -68,6 +69,3 @@ struct MoviesHomeView: View {
     }
 }
 
-#Preview {
-    MoviesHomeView(viewModel: .init())
-}

@@ -11,12 +11,14 @@ import Combine
 
 @Observable
 class MoviesGenreListViewModel {
+    let repository: MoviesHomeRepository
     let genre: Genre
     var movies: [Movie]?
     
     private var bags: Set<AnyCancellable> = .init()
     
-    init(genre: Genre) {
+    init(repository: MoviesHomeRepository, genre: Genre) {
+        self.repository = repository
         self.genre = genre
     }
     
@@ -24,7 +26,8 @@ class MoviesGenreListViewModel {
         let params = ["with_genres": "\(genre.id)",
                       "page": "\(1)",
                       "sort_by": MoviesSort.byPopularity.sortByAPI()]
-        APIService.shared.request(endpoint: .discover(params: params)).sink { _ in
+        repository.fetchDiscoverMovies(params: params)
+            .sink { _ in
             
         } receiveValue: { (data: PaginatedResponse<Movie>) in
             self.movies = data.results
