@@ -89,7 +89,7 @@ class PeopleDetailViewModel {
     }
     
     func checkCanShowBiography(people: People) -> Bool {
-        return people.birthDay != nil ||
+        return people.biography != nil ||
         people.birthDay != nil ||
         people.place_of_birth != nil ||
         people.deathDay != nil
