@@ -45,3 +45,38 @@ extension People {
         return names.joined(separator: ", ")
     }
 }
+
+let samplePeople = People(
+    id: 1,
+    name: "John Doe",
+    character: "Main Character",
+    department: "Acting",
+    profile_path: "/profile_path.jpg",
+    known_for_department: "Acting",
+    known_for: [
+        People.KnownFor(
+            id: 101,
+            original_title: "Famous Movie",
+            poster_path: "/poster_path.jpg"
+        ),
+        People.KnownFor(
+            id: 102,
+            original_title: "Another Hit",
+            poster_path: "/another_poster.jpg"
+        )
+    ],
+    also_known_as: ["Johnny", "JD"],
+    birthDay: "1985-06-15",
+    deathDay: nil,
+    place_of_birth: "Los Angeles, California, USA",
+    biography: "John Doe is an acclaimed actor known for his diverse roles in major films.",
+    popularity: 75.5,
+    images: [
+        ImageData(
+            aspect_ratio: 1.78,
+            file_path: "/images/sample_image.jpg",
+            height: 1080,
+            width: 1920
+        )
+    ]
+)
