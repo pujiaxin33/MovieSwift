@@ -16,6 +16,7 @@ class FanClubViewModel {
     private(set) var favoritePeople: [People] = []
     var isLoading: Bool = false
     var toast: Toast? = nil
+    var isLoadFinished: Bool = false
     private let repository: FanClubRepository
     private let storage: FanClubPeopleStorage
     private var currentPage: Int = 1
@@ -32,7 +33,7 @@ class FanClubViewModel {
         let params = ["page": "\(currentPage)",
                       "region": region]
         repository.fetchPopularPersons(params: params)
-            .delay(for: 2, scheduler: DispatchQueue.main)
+            .delay(for: 1, scheduler: DispatchQueue.main)
             .sink { (completion) in
                 self.isLoading = false
                 switch completion {
@@ -41,7 +42,12 @@ class FanClubViewModel {
                     self.toast = .init(style: .error, message: error.localizedDescription)
                 }
             } receiveValue: { (data: PaginatedResponse<People>) in
-                self.peoples = data.results
+                if self.currentPage == 1 {
+                    self.peoples = data.results
+                } else {
+                    self.peoples?.append(contentsOf: data.results)
+                }
+                self.currentPage += 1
             }.store(in: &bags)
     }
     

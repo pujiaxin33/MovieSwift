@@ -32,7 +32,22 @@ struct FanClubView: View {
                         }
                     }
                 }
-                //todo: add load more
+                
+                if !viewModel.isLoadFinished {
+                    Section {
+                        VStack(alignment: .center) {
+                            ProgressView()
+                                .tint(Color.blue)
+                                .frame(width: 50, height: 50)
+                            Text("Loading More")
+                        }
+                        .frame(maxWidth: .infinity)
+                        .onAppear {
+                            viewModel.loadData()
+                        }
+                    }
+                    .listRowBackground(Color.clear)
+                }
             }
             .registerFanClubNavigationDestinations(with: coordinator)
             .navigationTitle("Fan Club")
