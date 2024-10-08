@@ -37,11 +37,15 @@ struct FanClubView: View {
             .registerFanClubNavigationDestinations(with: coordinator)
             .navigationTitle("Fan Club")
             .navigationBarTitleDisplayMode(.automatic)
+            .showLoading($viewModel.isLoading)
             .onFirstAppear {
                 viewModel.loadData()
             }
             .onAppear {
                 viewModel.refreshFavoritePeople()
+            }
+            .refreshable {
+                viewModel.loadData()
             }
         }
         .environment(\.navigation, navigation)

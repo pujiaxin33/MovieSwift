@@ -8,11 +8,13 @@
 import Foundation
 import Networking
 import Combine
+import Observation
 
 @Observable
 class FanClubViewModel {
     private(set) var peoples: [People]?
     private(set) var favoritePeople: [People] = []
+    var isLoading: Bool = false
     private let repository: FanClubRepository
     private let storage: FanClubPeopleStorage
     private var currentPage: Int = 1
@@ -24,12 +26,14 @@ class FanClubViewModel {
     }
     
     func loadData() {
+        isLoading = true
         let region = Locale.current.region?.identifier ?? "US"
         let params = ["page": "\(currentPage)",
                       "region": region]
         repository.fetchPopularPersons(params: params)
+            .delay(for: 2, scheduler: DispatchQueue.main)
             .sink { _ in
-                
+                self.isLoading = false
             } receiveValue: { (data: PaginatedResponse<People>) in
                 self.peoples = data.results
             }.store(in: &bags)
