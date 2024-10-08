@@ -11,17 +11,16 @@ struct FanClubView: View {
     let coordinator: FanClubCoordinator
     @State var viewModel: FanClubViewModel
     @State private var navigation: Navigation = .init()
-    @State private var favoritePeopleManager: FavoritePeopleManager = .init()
     
     var body: some View {
         NavigationStack(path: $navigation.path) {
             List {
-                if !favoritePeopleManager.peoples.isEmpty {
+                if !viewModel.favoritePeople.isEmpty {
                     Section {
-                        ForEach(favoritePeopleManager.peoples) { people in
+                        ForEach(viewModel.favoritePeople) { people in
                             PeopleCardView(people: people)
                         }.onDelete { index in
-                            favoritePeopleManager.remove(favoritePeopleManager.peoples[index.first!])
+                            viewModel.removePeople(people: viewModel.favoritePeople[index.first!])
                         }
                     }
                 }
@@ -38,40 +37,13 @@ struct FanClubView: View {
             .registerFanClubNavigationDestinations(with: coordinator)
             .navigationTitle("Fan Club")
             .navigationBarTitleDisplayMode(.automatic)
-            .onAppear {
+            .onFirstAppear {
                 viewModel.loadData()
+            }
+            .onAppear {
+                viewModel.refreshFavoritePeople()
             }
         }
         .environment(\.navigation, navigation)
-        .environment(\.favoritePeopleManager, favoritePeopleManager)
-    }
-}
-
-@Observable
-class FavoritePeopleManager {
-    private(set) var peoples: [People] = []
-    
-    func insert(_ people: People) {
-        remove(people)
-        peoples.insert(people, at: 0)
-    }
-    
-    func remove(_ people: People) {
-        peoples.removeAll{ $0.id == people.id }
-    }
-}
-
-extension EnvironmentValues {
-    private class FavoritePeopleManagerKey: EnvironmentKey {
-        static let defaultValue: FavoritePeopleManager = .init()
-    }
-    
-    var favoritePeopleManager: FavoritePeopleManager {
-        set {
-            self[FavoritePeopleManagerKey.self] = newValue
-        }
-        get {
-            return self[FavoritePeopleManagerKey.self]
-        }
     }
 }

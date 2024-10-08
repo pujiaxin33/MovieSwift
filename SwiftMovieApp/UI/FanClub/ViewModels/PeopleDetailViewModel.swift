@@ -11,16 +11,20 @@ import Networking
 
 @Observable
 class PeopleDetailViewModel {
-    let repository: PeopleRepository
-    var people: People
-    var movieByYears: [MoviesInYear]?
+    private(set) var people: People
+    private(set) var movieByYears: [MoviesInYear]?
+    private(set) var favoritePeoples: [People]
+    private let repository: PeopleRepository
+    private let storage: FanClubPeopleStorage
     private var imagesResponse: ImagesResponse?
     private var peopleCreditsResponse: PeopleCreditsResponse?
     private var bags: Set<AnyCancellable> = .init()
     
-    init(repository: PeopleRepository, people: People) {
+    init(repository: PeopleRepository, storage: FanClubPeopleStorage, people: People) {
         self.repository = repository
+        self.storage = storage
         self.people = people
+        self.favoritePeoples = self.storage.queryAllPeoples()
     }
     
     func loadData() {
@@ -95,7 +99,17 @@ class PeopleDetailViewModel {
         people.deathDay != nil
     }
     
-    func isFavoritePeople(people: People, favoritePeoples: [People]) -> Bool {
+    func favoritePeople(_ people: People) {
+        storage.save(people)
+        favoritePeoples = storage.queryAllPeoples()
+    }
+    
+    func unfavoritePeople(_ people: People) {
+        storage.remove(people)
+        favoritePeoples = storage.queryAllPeoples()
+    }
+    
+    func isFavoritePeople(people: People) -> Bool {
         return favoritePeoples.contains(people)
     }
 }

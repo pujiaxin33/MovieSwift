@@ -12,11 +12,17 @@ class FanClubCoordinator {
     let moviesRepository: MoviesHomeRepository
     let fanClubRepository: FanClubRepository
     let peopleRepository: PeopleRepository
+    let fanClubPeopleStorage: FanClubPeopleStorage
     
-    init(moviesRepository: MoviesHomeRepository, fanClubRepository: FanClubRepository, peopleRepository: PeopleRepository) {
+    init(moviesRepository: MoviesHomeRepository, 
+         fanClubRepository: FanClubRepository,
+         peopleRepository: PeopleRepository,
+         fanClubPeopleStorage: FanClubPeopleStorage
+    ) {
         self.moviesRepository = moviesRepository
         self.fanClubRepository = fanClubRepository
         self.peopleRepository = peopleRepository
+        self.fanClubPeopleStorage = fanClubPeopleStorage
     }
     
     func makeMovieDetailView(movie: Movie) -> MovieDetailView {
@@ -32,7 +38,7 @@ class FanClubCoordinator {
     }
     
     func makePeopleDetailView(people: People) -> PeopleDetailView {
-        return PeopleDetailView(viewModel: .init(repository: peopleRepository, people: people))
+        return PeopleDetailView(viewModel: .init(repository: peopleRepository, storage: fanClubPeopleStorage, people: people))
     }
     
     func makeMoviesGenreListView(genre: Genre) -> MoviesGenreListView {

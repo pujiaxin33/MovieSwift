@@ -11,10 +11,12 @@ import SwiftUI
 class MoviesHomeCoordinator {
     let repository: MoviesHomeRepository
     let peopleRepository: PeopleRepository
+    let fanClubPeopleStorage: FanClubPeopleStorage
     
-    init(repository: MoviesHomeRepository, peopleRepository: PeopleRepository) {
+    init(repository: MoviesHomeRepository, peopleRepository: PeopleRepository, fanClubPeopleStorage: FanClubPeopleStorage) {
         self.repository = repository
         self.peopleRepository = peopleRepository
+        self.fanClubPeopleStorage = fanClubPeopleStorage
     }
     
     func makeMovieDetailView(movie: Movie) -> MovieDetailView {
@@ -30,7 +32,7 @@ class MoviesHomeCoordinator {
     }
     
     func makePeopleDetailView(people: People) -> PeopleDetailView {
-        return PeopleDetailView(viewModel: .init(repository: peopleRepository, people: people))
+        return PeopleDetailView(viewModel: .init(repository: peopleRepository, storage: fanClubPeopleStorage, people: people))
     }
     
     func makeMoviesGenreListView(genre: Genre) -> MoviesGenreListView {

@@ -8,6 +8,7 @@
 import Foundation
 import Networking
 import Combine
+import Observation
 
 @Observable
 class MoviesHomeViewModel {

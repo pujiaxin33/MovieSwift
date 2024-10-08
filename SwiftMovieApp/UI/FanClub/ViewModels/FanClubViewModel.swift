@@ -11,13 +11,16 @@ import Combine
 
 @Observable
 class FanClubViewModel {
-    let repository: FanClubRepository
-    var peoples: [People]?
+    private(set) var peoples: [People]?
+    private(set) var favoritePeople: [People] = []
+    private let repository: FanClubRepository
+    private let storage: FanClubPeopleStorage
     private var currentPage: Int = 1
     private var bags: Set<AnyCancellable> = .init()
     
-    init(repository: FanClubRepository) {
+    init(repository: FanClubRepository, storage: FanClubPeopleStorage) {
         self.repository = repository
+        self.storage = storage
     }
     
     func loadData() {
@@ -30,5 +33,13 @@ class FanClubViewModel {
             } receiveValue: { (data: PaginatedResponse<People>) in
                 self.peoples = data.results
             }.store(in: &bags)
+    }
+    
+    func refreshFavoritePeople() {
+        favoritePeople = storage.queryAllPeoples()
+    }
+    
+    func removePeople(people: People) {
+        storage.remove(people)
     }
 }

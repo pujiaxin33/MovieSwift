@@ -9,8 +9,12 @@ import SwiftUI
 
 @main
 struct SwiftMovieAppApp: App {
-    @State var appConfiguration: AppConfiguration = .init()
+    @State private var appConfiguration: AppConfiguration = .init()
     private let coordinator: AppCoordinator = .init()
+    
+    init() {
+        coordinator.createStorageTables()
+    }
     
     var body: some Scene {
         WindowGroup {
