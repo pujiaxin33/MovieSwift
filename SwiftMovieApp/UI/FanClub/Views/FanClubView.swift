@@ -38,6 +38,7 @@ struct FanClubView: View {
             .navigationTitle("Fan Club")
             .navigationBarTitleDisplayMode(.automatic)
             .showLoading($viewModel.isLoading)
+            .toastView(toast: $viewModel.toast)
             .onFirstAppear {
                 viewModel.loadData()
             }

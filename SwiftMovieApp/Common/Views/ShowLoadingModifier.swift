@@ -18,20 +18,19 @@ struct ShowLoadingModifier: ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        return ZStack {
-            content
-                .disabled(isLoading.wrappedValue)
-            if isLoading.wrappedValue {
-                ProgressView {
-                    Text("Loading")
-                        .foregroundStyle(Color.blue)
+        return content
+            .overlay {
+                if isLoading.wrappedValue {
+                    ProgressView {
+                        Text("Loading")
+                            .foregroundStyle(Color.blue)
+                    }
+                    .tint(.blue)
+                    .frame(width: 100, height: 100)
+                    .background(.thinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
-                .tint(.blue)
-                .frame(width: 100, height: 100)
-                .background(.thinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
             }
-        }
     }
 }
 

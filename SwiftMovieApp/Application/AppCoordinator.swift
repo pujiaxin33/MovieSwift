@@ -10,6 +10,7 @@ import Networking
 
 class AppCoordinator {
     private let apiService = DefaultAPIService.shared
+//    private let apiService = MockAPIService(result: .failure(MockAPIService.MockError.test))
     private let fanClubPeopleStorage: FanClubPeopleStorage = DefaultFanClubPeopleStorage()
     
     func makeMoviesHomeView() -> MoviesHomeView {
