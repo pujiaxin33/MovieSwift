@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Networking
+import Kingfisher
 
 struct MovieBackdropImage: View {
     enum DisplayMode {
@@ -18,14 +19,19 @@ struct MovieBackdropImage: View {
     
     var body: some View {
         if let path {
-            AsyncImage(url: ImageService.posterUrl(path: path, size: .original)) { image in
-                image.resizable()
-                    .renderingMode(.original)
-                    .frame(width: 280, height: displayMode == .normal ? 168 : 50)
-            } placeholder: {
-                ProgressView()
-                    .frame(width: 280, height: displayMode == .normal ? 168 : 50)
-            }
+            KFImage
+                .url(ImageService.posterUrl(path: path, size: .original))
+                .placeholder { _ in
+                    ProgressView()
+                        .frame(width: 280, height: displayMode == .normal ? 168 : 50)
+                }
+                .fade(duration: 0.5)
+                .onSuccess { _ in
+                }
+                .onFailure { _ in
+                }
+                .resizable()
+                .frame(width: 280, height: displayMode == .normal ? 168 : 50)
         } else {
             ProgressView()
                 .frame(width: 280, height: displayMode == .normal ? 168 : 50)

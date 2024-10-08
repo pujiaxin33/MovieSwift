@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Networking
+import Kingfisher
 
 struct MoviePosterView: View {
     let path: String?
@@ -15,14 +16,20 @@ struct MoviePosterView: View {
     
     var body: some View {
         if let path {
-            AsyncImage(url: ImageService.posterUrl(path: path, size: urlSize)) { image in
-                image.resizable()
-                    .renderingMode(.original)
-                    .posterStyle(loaded: true, size: size)
-            } placeholder: {
-                ProgressView()
-                    .frame(width: size.width(), height: size.height())
-            }
+            KFImage
+                .url(ImageService.posterUrl(path: path, size: urlSize))
+                .placeholder { _ in
+                    ProgressView()
+                        .frame(width: size.width(), height: size.height())
+                }
+                .fade(duration: 0.5)
+                .onSuccess { _ in
+                }
+                .onFailure { _ in
+                }
+                .resizable()
+                .posterStyle(loaded: true, size: size)
+            
         } else {
             ProgressView()
                 .frame(width: size.width(), height: size.height())
