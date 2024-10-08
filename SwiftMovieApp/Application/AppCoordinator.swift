@@ -35,7 +35,8 @@ class AppCoordinator {
             peopleRepository: peopleRepository,
             fanClubPeopleStorage: fanClubPeopleStorage
         )
-        let viewModel: FanClubViewModel = .init(repository: DefaultFanClubRepository(apiService: apiService), storage: fanClubPeopleStorage)
+        let useCase = DefaultFanClubUseCase(repository: fanClubRepository, storage: fanClubPeopleStorage)
+        let viewModel: FanClubViewModel = .init(useCase: useCase)
         return .init(coordinator: coordinator, viewModel: viewModel)
     }
     

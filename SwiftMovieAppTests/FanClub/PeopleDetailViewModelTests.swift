@@ -13,15 +13,17 @@ final class PeopleDetailViewModelTests: XCTestCase {
 
     var viewModel: PeopleDetailViewModel!
     var mockRepository: MockPeopleRepository!
+    var mockStorage: MockFanClubPeopleStorage!
     var cancellables: Set<AnyCancellable>!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
         mockRepository = MockPeopleRepository()
+        mockStorage = MockFanClubPeopleStorage(peoples: [])
         mockRepository.mockPersonDetailResult = .failure(NSError(domain: "TestError", code: 0, userInfo: nil))
         mockRepository.mockPersonImagesResult = .failure(NSError(domain: "TestError", code: 0, userInfo: nil))
         mockRepository.mockPersonMovieCreditsResult = .failure(NSError(domain: "TestError", code: 0, userInfo: nil))
-        viewModel = PeopleDetailViewModel(repository: mockRepository, people: samplePeople)
+        viewModel = PeopleDetailViewModel(repository: mockRepository, storage: mockStorage, people: samplePeople)
         cancellables = Set<AnyCancellable>()
     }
 
@@ -126,9 +128,11 @@ final class PeopleDetailViewModelTests: XCTestCase {
         let favoritePeople = [
             samplePeople
         ]
+        mockStorage = MockFanClubPeopleStorage(peoples: favoritePeople)
+        viewModel = PeopleDetailViewModel(repository: mockRepository, storage: mockStorage, people: samplePeople)
 
         // When & Then
-        XCTAssertTrue(viewModel.isFavoritePeople(people: samplePeople, favoritePeoples: favoritePeople))
-        XCTAssertFalse(viewModel.isFavoritePeople(people: samplePeopleCantShowBiography, favoritePeoples: favoritePeople))
+        XCTAssertTrue(viewModel.isFavoritePeople(people: samplePeople))
+        XCTAssertFalse(viewModel.isFavoritePeople(people: samplePeopleCantShowBiography))
     }
 }

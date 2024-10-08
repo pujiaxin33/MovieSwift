@@ -14,17 +14,15 @@ import Observation
 class FanClubViewModel {
     private(set) var peoples: [People]?
     private(set) var favoritePeople: [People] = []
+    private(set) var currentPage: Int = 1
     var isLoading: Bool = false
     var toast: Toast? = nil
     var isLoadFinished: Bool = false
-    private let repository: FanClubRepository
-    private let storage: FanClubPeopleStorage
-    private var currentPage: Int = 1
+    private let useCase: FanClubUseCase
     private var bags: Set<AnyCancellable> = .init()
     
-    init(repository: FanClubRepository, storage: FanClubPeopleStorage) {
-        self.repository = repository
-        self.storage = storage
+    init(useCase: FanClubUseCase) {
+        self.useCase = useCase
     }
     
     func loadData() {
@@ -32,8 +30,7 @@ class FanClubViewModel {
         let region = Locale.current.region?.identifier ?? "US"
         let params = ["page": "\(currentPage)",
                       "region": region]
-        repository.fetchPopularPersons(params: params)
-            .delay(for: 1, scheduler: DispatchQueue.main)
+        useCase.fetchPopularPersons(params: params)
             .sink { (completion) in
                 self.isLoading = false
                 switch completion {
@@ -52,10 +49,10 @@ class FanClubViewModel {
     }
     
     func refreshFavoritePeople() {
-        favoritePeople = storage.queryAllPeoples()
+        favoritePeople = useCase.queryAllPeoples()
     }
     
     func removePeople(people: People) {
-        storage.remove(people)
+        useCase.remove(people)
     }
 }
