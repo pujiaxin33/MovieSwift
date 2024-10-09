@@ -10,28 +10,83 @@ import Networking
 
 struct MoviesHomeView: View {
     
+    enum HomeMode {
+        case list, grid
+        
+        func icon() -> String {
+            switch self {
+            case .list: return "rectangle.3.offgrid.fill"
+            case .grid: return "rectangle.grid.1x2"
+            }
+        }
+    }
+    
     let coordinator: MoviesHomeCoordinator
     @State var viewModel: MoviesHomeViewModel
     @State private var navigation = Navigation()
+    @State private var selectedMenu: MoviesMenu = .nowPlaying
+    @State var homeMode: HomeMode = .list
+    
+    private var swapHomeButton: some View {
+        Button(action: {
+            self.homeMode = self.homeMode == .grid ? .list : .grid
+        }) {
+            HStack {
+                Image(systemName: self.homeMode.icon()).imageScale(.medium)
+            }.frame(width: 30, height: 30)
+        }
+    }
+    
+    @ViewBuilder
+    var homeAsList: some View {
+        TabView(selection: $selectedMenu) {
+            ForEach(MoviesMenu.allCases, id: \.self) { menu in
+                if menu == .genres {
+                    GenreListView(genres: viewModel.genres)
+                        .tag(menu)
+                } else {
+                    coordinator.makeMoviesListView(path: .init(listType: .menu(menu), naviTitle: menu.title(), movies: []))
+                        .tag(menu)
+                }
+            }
+        }
+        .tabViewStyle(PageTabViewStyle())
+        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+    }
+    
+    var homeAsGrid: some View {
+        List {
+            ForEach(MoviesMenu.allCases, id: \.self) { menu in
+                if menu == .genres {
+                    if !viewModel.genres.isEmpty {
+                        genresList(genres: viewModel.genres)
+                    }
+                } else {
+                    if let movies = viewModel.movies[menu] {
+                        moviesList(menu: menu, movies: movies)
+                    }
+                }
+            }
+        }
+    }
     
     var body: some View {
         NavigationStack(path: $navigation.path) {
-            List {
-                ForEach(MoviesMenu.allCases, id: \.self) { menu in
-                    if menu == .genres {
-                        if !viewModel.genres.isEmpty {
-                            genresList(genres: viewModel.genres)
-                        }
-                    } else {
-                        if let movies = viewModel.movies[menu] {
-                            moviesList(menu: menu, movies: movies)
-                        }
-                    }
+            Group {
+                if homeMode == .list {
+                    homeAsList
+                } else {
+                    homeAsGrid
                 }
             }
             .registerMoviesNavigationDestinations(with: coordinator)
             .navigationTitle("Movies")
-            .navigationBarTitleDisplayMode(.automatic)
+            .navigationBarTitleDisplayMode(homeMode == .list ? .inline : .automatic)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    swapHomeButton
+                }
+            }
             .onAppear {
                 viewModel.loadData()
             }

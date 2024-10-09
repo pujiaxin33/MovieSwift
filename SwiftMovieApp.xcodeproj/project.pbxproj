@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B201DFA32CB683E600066556 /* GenreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B201DFA22CB683E600066556 /* GenreListView.swift */; };
 		B218C0EE2CA699A200B4F854 /* PeopleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B218C0ED2CA699A200B4F854 /* PeopleRepository.swift */; };
 		B218C0F02CA699B500B4F854 /* DefaultPeopleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B218C0EF2CA699B500B4F854 /* DefaultPeopleRepository.swift */; };
 		B218C0F32CA6A07000B4F854 /* FanClubViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B218C0F22CA6A07000B4F854 /* FanClubViewModelTests.swift */; };
@@ -102,6 +103,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B201DFA22CB683E600066556 /* GenreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreListView.swift; sourceTree = "<group>"; };
 		B218C0ED2CA699A200B4F854 /* PeopleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleRepository.swift; sourceTree = "<group>"; };
 		B218C0EF2CA699B500B4F854 /* DefaultPeopleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPeopleRepository.swift; sourceTree = "<group>"; };
 		B218C0F22CA6A07000B4F854 /* FanClubViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanClubViewModelTests.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				B2B496B42CA4047F009228E4 /* MovieDetailOverviewView.swift */,
 				B2B496B62CA4077B009228E4 /* MovieDetailPosterCardView.swift */,
 				B2B496BA2CA40AF3009228E4 /* MovieDetailbackdropCardView.swift */,
+				B201DFA22CB683E600066556 /* GenreListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -688,6 +691,7 @@
 				B2B496B72CA4077B009228E4 /* MovieDetailPosterCardView.swift in Sources */,
 				B2C3B59B2CA16C5A00D9C552 /* DiscoverFilter.swift in Sources */,
 				B29E2A902CB5143B004054C5 /* MockAPIService.swift in Sources */,
+				B201DFA32CB683E600066556 /* GenreListView.swift in Sources */,
 				B2C3B5942CA16C5A00D9C552 /* Video.swift in Sources */,
 				B24A6AC62CA691D300E4032D /* FanClubNavigationDestinationModifier.swift in Sources */,
 				B2C3B59E2CA16C5A00D9C552 /* MovieUserMeta.swift in Sources */,
