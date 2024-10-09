@@ -42,7 +42,9 @@ struct MoviesHomeView: View {
     func moviesList(menu: MoviesMenu, movies: [Movie]) -> some View {
         Group {
             VStack(alignment: .leading) {
-                Text(menu.title())
+                SeeAllHeaderView(title: menu.title()) { navi in
+                    
+                }
                 
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 15) {

@@ -51,4 +51,8 @@ class DefaultMoviesHomeRepository: MoviesHomeRepository {
     func fetchDiscoverMovies(params: [String : Any]) -> AnyPublisher<PaginatedResponse<Movie>, Error> {
         return apiService.request(endpoint: .discover(params: params))
     }
+    
+    func searchMovies(params: [String : Any]) -> AnyPublisher<PaginatedResponse<Movie>, Error> {
+        return apiService.request(endpoint: .searchMovie(params: params))
+    }
 }

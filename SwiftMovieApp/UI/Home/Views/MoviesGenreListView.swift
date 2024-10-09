@@ -13,7 +13,7 @@ struct MoviesGenreListView: View {
     var body: some View {
         Group {
             if let movies = viewModel.movies {
-                MoviesListView(naviTitle: "Genre", movies: movies)
+                MoviesListView(viewModel: .init(repository: viewModel.repository, movies: movies), naviTitle: "Genre", displaySearch: true)
             } else {
                 ProgressView()
             }

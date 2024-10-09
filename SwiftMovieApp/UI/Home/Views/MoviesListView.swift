@@ -7,15 +7,38 @@
 
 import SwiftUI
 import Networking
+import Combine
 
 struct MoviesListView: View {
+    let viewModel: MoviesListViewModel
     let naviTitle: String
-    let movies: [Movie]
+    let displaySearch: Bool
+    @State private var searchText: String = ""
+    @State private var isSearching: Bool = false
+    private let publisher: PassthroughSubject<String, Never> = .init()
+    
     var body: some View {
-        List(movies) { movie in
-            MovieCardView(movie: movie)
+        List {
+            if isSearching {
+                ForEach(viewModel.searchMovies) { movie in
+                    MovieCardView(movie: movie)
+                }
+            } else {
+                ForEach(viewModel.movies) { movie in
+                    MovieCardView(movie: movie)
+                }
+            }
         }
         .navigationTitle(naviTitle)
+        .if(displaySearch, transform: { view in
+            view.searchable(text: $searchText, isPresented: $isSearching, prompt: Text("Search Any Movie Or Person"))
+        })
+        .onChange(of: searchText) {
+            publisher.send(searchText)
+        }
+        .onReceive(publisher.debounce(for: .seconds(0.3), scheduler: DispatchQueue.main)) { value in
+            viewModel.searchMovies(with: value)
+        }
     }
 }
 
@@ -43,8 +66,4 @@ struct MovieCardView: View {
             }
         }
     }
-}
-
-#Preview {
-    MoviesListView(naviTitle: "test", movies: [sampleMovie])
 }
