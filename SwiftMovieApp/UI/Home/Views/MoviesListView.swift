@@ -70,7 +70,7 @@ struct MoviesListView: View {
         }
         .navigationTitle(naviTitle)
         .if(viewModel.listType.showSearch, transform: { view in
-            view.searchable(text: $searchText, isPresented: $isSearching, prompt: Text("Search Any Movie Or Person"))
+            view.searchable(text: $searchText, isPresented: $isSearching, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Search Any Movie Or Person"))
         })
         .onChange(of: searchText) {
             publisher.send(searchText)
