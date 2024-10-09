@@ -73,8 +73,6 @@
 		B2E571172CA1639E00185CB2 /* SwiftMovieAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E571162CA1639E00185CB2 /* SwiftMovieAppTests.swift */; };
 		B2E571212CA1639E00185CB2 /* SwiftMovieAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E571202CA1639E00185CB2 /* SwiftMovieAppUITests.swift */; };
 		B2E571232CA1639E00185CB2 /* SwiftMovieAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E571222CA1639E00185CB2 /* SwiftMovieAppUITestsLaunchTests.swift */; };
-		B2ECFC782CA506010026857C /* MoviesGenreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ECFC772CA506010026857C /* MoviesGenreListView.swift */; };
-		B2ECFC7A2CA5061D0026857C /* MoviesGenreListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ECFC792CA5061D0026857C /* MoviesGenreListViewModel.swift */; };
 		B2ECFC7D2CA507120026857C /* MovieSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ECFC7C2CA507120026857C /* MovieSort.swift */; };
 		B2ECFC822CA50A9C0026857C /* FanClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ECFC812CA50A9C0026857C /* FanClubView.swift */; };
 		B2ECFC842CA50AAE0026857C /* FanClubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ECFC832CA50AAE0026857C /* FanClubViewModel.swift */; };
@@ -172,8 +170,6 @@
 		B2E5711C2CA1639E00185CB2 /* SwiftMovieAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMovieAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2E571202CA1639E00185CB2 /* SwiftMovieAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMovieAppUITests.swift; sourceTree = "<group>"; };
 		B2E571222CA1639E00185CB2 /* SwiftMovieAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMovieAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		B2ECFC772CA506010026857C /* MoviesGenreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesGenreListView.swift; sourceTree = "<group>"; };
-		B2ECFC792CA5061D0026857C /* MoviesGenreListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesGenreListViewModel.swift; sourceTree = "<group>"; };
 		B2ECFC7C2CA507120026857C /* MovieSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSort.swift; sourceTree = "<group>"; };
 		B2ECFC812CA50A9C0026857C /* FanClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanClubView.swift; sourceTree = "<group>"; };
 		B2ECFC832CA50AAE0026857C /* FanClubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanClubViewModel.swift; sourceTree = "<group>"; };
@@ -392,7 +388,6 @@
 				B2B4969E2CA3F593009228E4 /* MoviesListCardView.swift */,
 				B2B496A02CA3F95B009228E4 /* SeeAllHeaderView.swift */,
 				B2B496A22CA3FA62009228E4 /* MoviesListView.swift */,
-				B2ECFC772CA506010026857C /* MoviesGenreListView.swift */,
 				B2B496A82CA3FF8E009228E4 /* PeoplesListCardView.swift */,
 				B2B496AA2CA40083009228E4 /* PeopleListView.swift */,
 				B2B496AE2CA40308009228E4 /* KeywordsCardView.swift */,
@@ -429,7 +424,6 @@
 			children = (
 				B2C3B5A32CA16FF500D9C552 /* MoviesHomeViewModel.swift */,
 				B2B4969A2CA3B61B009228E4 /* MovieDetailViewModel.swift */,
-				B2ECFC792CA5061D0026857C /* MoviesGenreListViewModel.swift */,
 				B29E2A992CB53769004054C5 /* MoviesListViewModel.swift */,
 			);
 			path = ViewModels;
@@ -698,9 +692,7 @@
 				B24A6AC62CA691D300E4032D /* FanClubNavigationDestinationModifier.swift in Sources */,
 				B2C3B59E2CA16C5A00D9C552 /* MovieUserMeta.swift in Sources */,
 				B2E571062CA1639C00185CB2 /* SwiftMovieAppApp.swift in Sources */,
-				B2ECFC782CA506010026857C /* MoviesGenreListView.swift in Sources */,
 				B2C3B5952CA16C5A00D9C552 /* CustomList.swift in Sources */,
-				B2ECFC7A2CA5061D0026857C /* MoviesGenreListViewModel.swift in Sources */,
 				B2B496AB2CA40083009228E4 /* PeopleListView.swift in Sources */,
 				B2ECFC862CA530140026857C /* PeopleDetailView.swift in Sources */,
 				B2C3B5932CA16C5A00D9C552 /* Review.swift in Sources */,

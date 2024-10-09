@@ -30,7 +30,10 @@ class FanClubCoordinator {
     }
     
     func makeMoviesListView(path: MovieListPath) -> MoviesListView {
-        return MoviesListView(viewModel: .init(repository: moviesRepository, movies: path.movies), naviTitle: path.naviTitle, displaySearch: true)
+        return MoviesListView(
+            viewModel: .init(listType: path.listType, repository: moviesRepository, movies: path.movies),
+            naviTitle: path.naviTitle
+        )
     }
     
     func makePeopleListView(path: PeopleListPath) -> PeopleListView {
@@ -39,9 +42,5 @@ class FanClubCoordinator {
     
     func makePeopleDetailView(people: People) -> PeopleDetailView {
         return PeopleDetailView(viewModel: .init(repository: peopleRepository, storage: fanClubPeopleStorage, people: people))
-    }
-    
-    func makeMoviesGenreListView(genre: Genre) -> MoviesGenreListView {
-        return MoviesGenreListView(viewModel: .init(repository: moviesRepository, genre: genre))
     }
 }

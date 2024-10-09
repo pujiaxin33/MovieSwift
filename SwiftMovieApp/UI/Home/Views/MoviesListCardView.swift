@@ -16,7 +16,7 @@ struct MoviesListCardView: View {
     var body: some View {
         VStack {
             SeeAllHeaderView(title: title) { navi in
-                navi.path.append(MovieListPath(naviTitle: title, movies: movies))
+                navi.path.append(MovieListPath(listType: .local, naviTitle: title, movies: movies))
             }
             
             ScrollView(.horizontal) {

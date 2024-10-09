@@ -25,6 +25,7 @@ extension EnvironmentValues {
 }
 
 struct MovieListPath: Hashable {
+    let listType: MoviesListViewModel.ListType
     let naviTitle: String
     let movies: [Movie]
 }

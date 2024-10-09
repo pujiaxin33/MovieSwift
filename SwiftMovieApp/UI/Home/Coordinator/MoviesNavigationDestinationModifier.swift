@@ -29,10 +29,6 @@ struct MoviesNavigationDestinationModifier: ViewModifier {
                 coordinator.makePeopleDetailView(people: people)
                     .toolbar(.hidden, for: .tabBar)
             })
-            .navigationDestination(for: Genre.self, destination: { genre in
-                coordinator.makeMoviesGenreListView(genre: genre)
-                    .toolbar(.hidden, for: .tabBar)
-            })
     }
 }
 

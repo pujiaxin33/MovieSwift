@@ -43,7 +43,7 @@ struct MoviesHomeView: View {
         Group {
             VStack(alignment: .leading) {
                 SeeAllHeaderView(title: menu.title()) { navi in
-                    
+                    navi.path.append(MovieListPath(listType: .menu(menu), naviTitle: menu.title(), movies: movies))
                 }
                 
                 ScrollView(.horizontal) {
@@ -63,7 +63,7 @@ struct MoviesHomeView: View {
     func genresList(genres: [Genre]) -> some View {
         Group {
             ForEach(genres) { genre in
-                NavigationLink(value: genre) {
+                NavigationLink(value: MovieListPath(listType: .genre(genre), naviTitle: "Genre", movies: [])) {
                     Text(genre.name)
                 }
             }
