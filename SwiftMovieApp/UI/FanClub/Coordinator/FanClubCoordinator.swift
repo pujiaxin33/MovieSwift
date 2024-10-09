@@ -31,7 +31,7 @@ class FanClubCoordinator {
     
     func makeMoviesListView(path: MovieListPath) -> MoviesListView {
         return MoviesListView(
-            viewModel: .init(listType: path.listType, repository: moviesRepository, movies: path.movies),
+            viewModel: .init(listType: path.listType, repository: moviesRepository, peopleRepository: peopleRepository, movies: path.movies),
             naviTitle: path.naviTitle
         )
     }

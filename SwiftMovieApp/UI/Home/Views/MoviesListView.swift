@@ -10,18 +10,58 @@ import Networking
 import Combine
 
 struct MoviesListView: View {
+    enum SearchFilter: Int {
+        case movies, peoples
+    }
+    
     let viewModel: MoviesListViewModel
     let naviTitle: String
     @State private var searchText: String = ""
     @State private var isSearching: Bool = false
+    @State private var selectedSearchFilter: Int = SearchFilter.movies.rawValue
+    
     private let publisher: PassthroughSubject<String, Never> = .init()
     
     var body: some View {
         List {
             if isSearching {
-                ForEach(viewModel.searchMovies) { movie in
-                    MovieCardView(movie: movie)
+                Picker(selection: $selectedSearchFilter) {
+                    Text("Movies").tag(SearchFilter.movies.rawValue)
+                    Text("Peoples").tag(SearchFilter.peoples.rawValue)
+                } label: {
+                    Text("")
                 }
+                .pickerStyle(SegmentedPickerStyle())
+                
+                if selectedSearchFilter == SearchFilter.movies.rawValue {
+                    if !viewModel.searchKeywords.isEmpty {
+                        Section {
+                            ForEach(viewModel.searchKeywords) { keyword in
+                                NavigationLink(value: MovieListPath(listType: .keyword(keyword.name), naviTitle: keyword.name, movies: [])) {
+                                    Text(keyword.name)
+                                }
+                            }
+                        } header: {
+                            Text("Keywords")
+                        }
+                    }
+                    
+                    if !viewModel.searchMovies.isEmpty {
+                        Section {
+                            ForEach(viewModel.searchMovies) { movie in
+                                MovieCardView(movie: movie)
+                            }
+                        } header: {
+                            Text("Results for \(searchText)")
+                        }
+                    }
+                    
+                } else {
+                    ForEach(viewModel.searchPeoples) { people in
+                        PeopleCardView(people: people)
+                    }
+                }
+                
             } else {
                 ForEach(viewModel.movies) { movie in
                     MovieCardView(movie: movie)
@@ -37,6 +77,12 @@ struct MoviesListView: View {
         }
         .onReceive(publisher.filter{ !$0.isEmpty }.debounce(for: .seconds(0.3), scheduler: DispatchQueue.main)) { value in
             viewModel.searchMovies(with: value)
+        }
+        .onChange(of: isSearching) {
+            if !isSearching {
+                selectedSearchFilter = SearchFilter.movies.rawValue
+                viewModel.resetSearchData()
+            }
         }
         .onAppear {
             viewModel.fetchMovies()

@@ -12,4 +12,5 @@ protocol PeopleRepository {
     func fetchPersonDetail(id: Int) -> AnyPublisher<People, Error>
     func fetchPersonImages(id: Int) -> AnyPublisher<ImagesResponse, Error>
     func fetchPersonMovieCredits(id: Int) -> AnyPublisher<PeopleCreditsResponse, Error>
+    func searchPeoples(params: [String: Any]) -> AnyPublisher<PaginatedResponse<People>, Error>
 }

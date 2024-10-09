@@ -19,4 +19,5 @@ protocol MoviesHomeRepository {
     func fetchMovieVideos(id: Int) -> AnyPublisher<PaginatedResponse<Video>, Error>
     func fetchDiscoverMovies(params: [String: Any]) -> AnyPublisher<PaginatedResponse<Movie>, Error>
     func searchMovies(params: [String: Any]) -> AnyPublisher<PaginatedResponse<Movie>, Error>
+    func searchKeywords(params: [String: Any]) -> AnyPublisher<PaginatedResponse<Keyword>, Error>
 }

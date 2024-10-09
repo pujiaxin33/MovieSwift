@@ -15,6 +15,7 @@ class MoviesListViewModel {
         case menu(MoviesMenu)
         case genre(Genre)
         case local
+        case keyword(String)
         
         var showSearch: Bool {
             switch self {
@@ -24,34 +25,53 @@ class MoviesListViewModel {
                 return false
             case .local:
                 return false
+            case .keyword:
+                return false
             }
         }
     }
     
     let listType: MoviesListViewModel.ListType
     let repository: MoviesHomeRepository
+    let peopleRepository: PeopleRepository
     private(set) var movies: [Movie]
     private(set) var searchMovies: [Movie] = []
+    private(set) var searchKeywords: [Keyword] = []
+    private(set) var searchPeoples: [People] = []
     private var bags: Set<AnyCancellable> = .init()
     
-    init(listType: MoviesListViewModel.ListType, repository: MoviesHomeRepository, movies: [Movie]) {
+    init(listType: MoviesListViewModel.ListType, repository: MoviesHomeRepository, peopleRepository: PeopleRepository, movies: [Movie]) {
         self.listType = listType
         self.repository = repository
+        self.peopleRepository = peopleRepository
         self.movies = movies
     }
     
     func searchMovies(with keyword: String) {
-        switch listType {
-        case .menu:
-            repository
-                .searchMovies(params: ["query": keyword, "page": "1"])
-                .sink { _ in
-                } receiveValue: { data in
-                    self.searchMovies = data.results
-                }
-                .store(in: &bags)
-        default: break
-        }
+        guard listType.showSearch else { return }
+        repository
+            .searchMovies(params: ["query": keyword, "page": "1"])
+            .sink { _ in
+            } receiveValue: { data in
+                self.searchMovies = data.results
+            }
+            .store(in: &bags)
+        
+        peopleRepository
+            .searchPeoples(params: ["query": keyword, "page": "1"])
+            .sink { _ in
+            } receiveValue: { data in
+                self.searchPeoples = data.results
+            }
+            .store(in: &bags)
+        
+        repository
+            .searchKeywords(params: ["query": keyword])
+            .sink { _ in
+            } receiveValue: { data in
+                self.searchKeywords = data.results
+            }
+            .store(in: &bags)
     }
     
     func fetchMovies() {
@@ -74,6 +94,21 @@ class MoviesListViewModel {
                 }.store(in: &bags)
         case .local:
             break
+        case .keyword(let keyword):
+            let params = ["with_keywords": keyword,
+                          "page": "\(1)",
+                          "sort_by": MoviesSort.byPopularity.sortByAPI()]
+            repository.fetchDiscoverMovies(params: params)
+                .sink { _ in
+                } receiveValue: { data in
+                    self.movies = data.results
+                }.store(in: &bags)
         }
+    }
+    
+    func resetSearchData() {
+        searchKeywords = []
+        searchMovies = []
+        searchPeoples = []
     }
 }

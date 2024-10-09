@@ -28,4 +28,7 @@ class DefaultPeopleRepository: PeopleRepository {
         return apiService.request(endpoint: .personMovieCredits(person: id))
     }
     
+    func searchPeoples(params: [String : Any]) -> AnyPublisher<PaginatedResponse<People>, Error> {
+        return apiService.request(endpoint: .searchPerson(params: params))
+    }
 }
