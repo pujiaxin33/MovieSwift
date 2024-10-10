@@ -15,8 +15,20 @@ struct FanClubView: View {
     var body: some View {
         NavigationStack(path: $navigation.path) {
             List {
+                
+                if viewModel.isRefreshing {
+                    VStack {
+                        ProgressView {
+                            Text("Refreshing...")
+                                .font(.system(size: 30))
+                                .foregroundStyle(Color.cyan)
+                        }
+                    }.listRowSeparator(.hidden)
+                        .frame(maxWidth: .infinity)
+                }
+                
                 if !viewModel.favoritePeople.isEmpty {
-                    Section {
+                    Section(header: sectionHeader(title: "Favorite peoples", isFirstSection: true)) {
                         ForEach(viewModel.favoritePeople) { people in
                             PeopleCardView(people: people)
                         }.onDelete { index in
@@ -26,7 +38,7 @@ struct FanClubView: View {
                 }
                 
                 if let peoples = viewModel.peoples {
-                    Section(header: Text("Popular people to add to your fan club")) {
+                    Section(header: sectionHeader(title: "Popular people to add to your fan club", isFirstSection: viewModel.favoritePeople.isEmpty)) {
                         ForEach(peoples) { people in
                             PeopleCardView(people: people)
                         }
@@ -49,6 +61,7 @@ struct FanClubView: View {
                     .listRowBackground(Color.clear)
                 }
             }
+            .coordinateSpace(.named("list"))
             .registerFanClubNavigationDestinations(with: coordinator)
             .navigationTitle("Fan Club")
             .navigationBarTitleDisplayMode(.automatic)
@@ -60,10 +73,29 @@ struct FanClubView: View {
             .onAppear {
                 viewModel.refreshFavoritePeople()
             }
-            .refreshable {
-                viewModel.loadData()
-            }
+            .listStyle(PlainListStyle())
+//            .refreshable {
+//                viewModel.loadData()
+//            }
         }
         .environment(\.navigation, navigation)
     }
+    
+    @ViewBuilder
+    func sectionHeader(title: String, isFirstSection: Bool) -> some View {
+        if isFirstSection {
+            Text(title)
+                .id(title)
+                .readLayoutData(coordinateSpace: .named("list"), onChange: { (data) in
+                    print(data.frameInCoordinateSpace.origin.y)
+                    if data.frameInCoordinateSpace.origin.y > 230 && !viewModel.isRefreshing {
+                        viewModel.startRefresh()
+                    }
+                })
+        } else {
+            Text(title)
+                .id(title)
+        }
+    }
+                                
 }

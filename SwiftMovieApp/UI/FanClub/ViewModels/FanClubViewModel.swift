@@ -16,6 +16,7 @@ class FanClubViewModel {
     private(set) var favoritePeople: [People] = []
     private(set) var currentPage: Int = 1
     var isLoading: Bool = false
+    var isRefreshing: Bool = false
     var toast: Toast? = nil
     var isLoadFinished: Bool = false
     private let useCase: FanClubUseCase
@@ -25,12 +26,13 @@ class FanClubViewModel {
         self.useCase = useCase
     }
     
-    func loadData() {
+    func loadData(_ handler: (() -> Void)? = nil) {
         isLoading = true
         let region = Locale.current.region?.identifier ?? "US"
         let params = ["page": "\(currentPage)",
                       "region": region]
         useCase.fetchPopularPersons(params: params)
+            .delay(for: 2, scheduler: DispatchQueue.main)
             .sink { (completion) in
                 self.isLoading = false
                 switch completion {
@@ -38,6 +40,7 @@ class FanClubViewModel {
                 case .failure(let error):
                     self.toast = .init(style: .error, message: error.localizedDescription)
                 }
+                handler?()
             } receiveValue: { (data: PaginatedResponse<People>) in
                 if self.currentPage == 1 {
                     self.peoples = data.results
@@ -46,6 +49,13 @@ class FanClubViewModel {
                 }
                 self.currentPage += 1
             }.store(in: &bags)
+    }
+    
+    func startRefresh() {
+        isRefreshing = true
+        loadData {
+            self.isRefreshing = false
+        }
     }
     
     func refreshFavoritePeople() {
