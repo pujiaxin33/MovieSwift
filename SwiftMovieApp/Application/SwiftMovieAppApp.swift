@@ -13,7 +13,7 @@ struct SwiftMovieAppApp: App {
     private let coordinator: AppCoordinator = .init()
     
     init() {
-        coordinator.createStorageTables()
+//        coordinator.createStorageTables()
     }
     
     var body: some Scene {
@@ -23,7 +23,7 @@ struct SwiftMovieAppApp: App {
                     Label("Home", systemImage: "movieclapper.fill")
                 }
                 
-                Text("Discover").tabItem {
+                coordinator.makeDiscoverView().tabItem {
                     Label("Discover", systemImage: "lanyardcard.fill")
                 }
                 

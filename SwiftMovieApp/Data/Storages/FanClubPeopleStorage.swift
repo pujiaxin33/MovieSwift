@@ -45,101 +45,102 @@ class DefaultFanClubPeopleStorage: FanClubPeopleStorage {
     init() {
         var documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         documentUrl.append(component: "people.sqlite3")
-        db = try! Connection(documentUrl.path())
+//        db = try! Connection(documentUrl.path())
     }
     
     func createTable() {
-        do {
-            try db.run(peopleTable.create(ifNotExists: true) { t in
-                t.column(id, primaryKey: true)
-                t.column(name)
-                t.column(character)
-                t.column(department)
-                t.column(profilePath)
-                t.column(knownForDepartment)
-                t.column(alsoKnownAs)
-                t.column(birthDay)
-                t.column(deathDay)
-                t.column(placeOfBirth)
-                t.column(biography)
-                t.column(popularity)
-                t.column(knownFor)
-                t.column(images)
-            })
-        } catch (let error) {
-            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
-        }
+//        do {
+//            try db.run(peopleTable.create(ifNotExists: true) { t in
+//                t.column(id, primaryKey: true)
+//                t.column(name)
+//                t.column(character)
+//                t.column(department)
+//                t.column(profilePath)
+//                t.column(knownForDepartment)
+//                t.column(alsoKnownAs)
+//                t.column(birthDay)
+//                t.column(deathDay)
+//                t.column(placeOfBirth)
+//                t.column(biography)
+//                t.column(popularity)
+//                t.column(knownFor)
+//                t.column(images)
+//            })
+//        } catch (let error) {
+//            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
+//        }
     }
     
     func save(_ people: People) {
-        remove(people)
-        do {
-            let insert = peopleTable.insert(
-                id <- people.id,
-                name <- people.name,
-                character <- people.character,
-                department <- people.department,
-                profilePath <- people.profile_path,
-                knownForDepartment <- people.known_for_department,
-                alsoKnownAs <- try? toJSONString(people.also_known_as),
-                birthDay <- people.birthDay,
-                deathDay <- people.deathDay,
-                placeOfBirth <- people.place_of_birth,
-                biography <- people.biography,
-                popularity <- people.popularity,
-                knownFor <- try? toJSONString(people.known_for),
-                images <- try? toJSONString(people.images)
-            )
-            try db.run(insert)
-        } catch (let error) {
-            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
-        }
+//        remove(people)
+//        do {
+//            let insert = peopleTable.insert(
+//                id <- people.id,
+//                name <- people.name,
+//                character <- people.character,
+//                department <- people.department,
+//                profilePath <- people.profile_path,
+//                knownForDepartment <- people.known_for_department,
+//                alsoKnownAs <- try? toJSONString(people.also_known_as),
+//                birthDay <- people.birthDay,
+//                deathDay <- people.deathDay,
+//                placeOfBirth <- people.place_of_birth,
+//                biography <- people.biography,
+//                popularity <- people.popularity,
+//                knownFor <- try? toJSONString(people.known_for),
+//                images <- try? toJSONString(people.images)
+//            )
+//            try db.run(insert)
+//        } catch (let error) {
+//            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
+//        }
     }
     
     func remove(_ people: People) {
-        do {
-            let personToDelete = peopleTable.filter(id == people.id)
-            try db.run(personToDelete.delete())
-        } catch (let error) {
-            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
-        }
+//        do {
+//            let personToDelete = peopleTable.filter(id == people.id)
+//            try db.run(personToDelete.delete())
+//        } catch (let error) {
+//            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
+//        }
     }
     
     func queryAllPeoples() -> [People] {
-        do {
-            var peopleList = [People]()
-            for row in try db.prepare(peopleTable) {
-                let person = People(
-                    id: row[id],
-                    name: row[name],
-                    character: row[character],
-                    department: row[department],
-                    profile_path: row[profilePath],
-                    known_for_department: row[knownForDepartment],
-                    known_for: try? fromJSONString([People.KnownFor].self, row[knownFor]),
-                    also_known_as: try? fromJSONString([String].self, row[alsoKnownAs]),
-                    birthDay: row[birthDay],
-                    deathDay: row[deathDay],
-                    place_of_birth: row[placeOfBirth],
-                    biography: row[biography],
-                    popularity: row[popularity],
-                    images: try? fromJSONString([ImageData].self, row[images])
-                )
-                peopleList.append(person)
-            }
-            return peopleList
-        } catch (let error) {
-            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
-            return []
-        }
+        return []
+//        do {
+//            var peopleList = [People]()
+//            for row in try db.prepare(peopleTable) {
+//                let person = People(
+//                    id: row[id],
+//                    name: row[name],
+//                    character: row[character],
+//                    department: row[department],
+//                    profile_path: row[profilePath],
+//                    known_for_department: row[knownForDepartment],
+//                    known_for: try? fromJSONString([People.KnownFor].self, row[knownFor]),
+//                    also_known_as: try? fromJSONString([String].self, row[alsoKnownAs]),
+//                    birthDay: row[birthDay],
+//                    deathDay: row[deathDay],
+//                    place_of_birth: row[placeOfBirth],
+//                    biography: row[biography],
+//                    popularity: row[popularity],
+//                    images: try? fromJSONString([ImageData].self, row[images])
+//                )
+//                peopleList.append(person)
+//            }
+//            return peopleList
+//        } catch (let error) {
+//            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
+//            return []
+//        }
     }
     
     func deleteAllPeoples() {
-        do {
-            try db.run(peopleTable.delete())
-        } catch (let error) {
-            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
-        }
+//        do {
+//            try db.run(peopleTable.delete())
+//        } catch (let error) {
+//            print("\(String(describing: self)) call \(#function) with error:\(error.localizedDescription)")
+//        }
     }
     
     // 将对象转换为JSON字符串

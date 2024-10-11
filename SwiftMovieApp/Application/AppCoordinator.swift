@@ -40,6 +40,18 @@ class AppCoordinator {
         return .init(coordinator: coordinator, viewModel: viewModel)
     }
     
+    func makeDiscoverView() -> DiscoverView {
+        let movieRepository = DefaultMoviesHomeRepository(apiService: apiService)
+        let peopleRepository = DefaultPeopleRepository(apiService: apiService)
+        let viewMoel = DiscoverViewModel(repository: movieRepository)
+        let coordinator: DiscoverCoordinator = .init(
+            repository: movieRepository,
+            peopleRepository: peopleRepository,
+            fanClubPeopleStorage: fanClubPeopleStorage
+        )
+        return DiscoverView(coordinator: coordinator, viewModel: viewMoel)
+    }
+    
     func createStorageTables() {
         fanClubPeopleStorage.createTable()
     }
