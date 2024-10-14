@@ -14,22 +14,25 @@ class FanClubCoordinator {
     let peopleRepository: PeopleRepository
     let fanClubPeopleStorage: FanClubPeopleStorage
     let seenMoviesStorage: SeenMoviesStorage
+    let wishMoviesStorage: WishMoviesStorage
     
     init(moviesRepository: MoviesHomeRepository, 
          fanClubRepository: FanClubRepository,
          peopleRepository: PeopleRepository,
          fanClubPeopleStorage: FanClubPeopleStorage,
-         seenMoviesStorage: SeenMoviesStorage
+         seenMoviesStorage: SeenMoviesStorage,
+         wishMoviesStorage: WishMoviesStorage
     ) {
         self.moviesRepository = moviesRepository
         self.fanClubRepository = fanClubRepository
         self.peopleRepository = peopleRepository
         self.fanClubPeopleStorage = fanClubPeopleStorage
         self.seenMoviesStorage = seenMoviesStorage
+        self.wishMoviesStorage = wishMoviesStorage
     }
     
     func makeMovieDetailView(movie: Movie) -> MovieDetailView {
-        return MovieDetailView(viewModel: .init(repository: moviesRepository, seenMoviesStorage: seenMoviesStorage, movie: movie))
+        return MovieDetailView(viewModel: .init(repository: moviesRepository, seenMoviesStorage: seenMoviesStorage, wishMoviesStorage: wishMoviesStorage, movie: movie))
     }
     
     func makeMoviesListView(path: MovieListPath) -> MoviesListView {

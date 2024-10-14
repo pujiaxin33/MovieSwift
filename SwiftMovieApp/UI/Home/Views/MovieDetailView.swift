@@ -35,24 +35,24 @@ struct MovieDetailView: View {
                            color: .pink,
                            isOn: isInWishlist,
                            action: {
-//                            if isInWishlist {
-//                                store.dispatch(action: MoviesActions.RemoveFromWishlist(movie: self.movieId))
-//                            } else {
-//                                store.dispatch(action: MoviesActions.AddToWishlist(movie: self.movieId))
-//                            }
-                           })
+                if isInSeenlist {
+                    viewModel.removeFromWishList()
+                } else {
+                    viewModel.addToWishList()
+                }
+            })
             
             BorderedButton(text: isInSeenlist ? "Seen" : "Seenlist",
                            systemImageName: "eye",
                            color: .green,
                            isOn: isInSeenlist,
                            action: {
-                            if isInSeenlist {
-                                viewModel.removeFromSeenList()
-                            } else {
-                                viewModel.addToSeenList()
-                            }
-                           })
+                if isInSeenlist {
+                    viewModel.removeFromSeenList()
+                } else {
+                    viewModel.addToSeenList()
+                }
+            })
         }
         .padding(.vertical, 8)
     }

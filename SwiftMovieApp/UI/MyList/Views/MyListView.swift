@@ -36,6 +36,7 @@ struct MyListView: View {
                 }
 
             }
+            .navigationTitle("My List")
             .registerMyListNavigationDestinations(with: coordinator)
     //        .listStyle(PlainListStyle())
             .onAppear {

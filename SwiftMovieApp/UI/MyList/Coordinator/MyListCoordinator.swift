@@ -12,16 +12,30 @@ class MyListCoordinator {
     let peopleRepository: PeopleRepository
     let fanClubPeopleStorage: FanClubPeopleStorage
     let seenMoviesStorage: SeenMoviesStorage
+    let wishMoviesStorage: WishMoviesStorage
     
-    init(repository: MoviesHomeRepository, peopleRepository: PeopleRepository, fanClubPeopleStorage: FanClubPeopleStorage, seenMoviesStorage: SeenMoviesStorage) {
+    init(
+        repository: MoviesHomeRepository,
+        peopleRepository: PeopleRepository,
+        fanClubPeopleStorage: FanClubPeopleStorage,
+        seenMoviesStorage: SeenMoviesStorage,
+        wishMoviesStorage: WishMoviesStorage
+    ) {
         self.repository = repository
         self.peopleRepository = peopleRepository
         self.fanClubPeopleStorage = fanClubPeopleStorage
         self.seenMoviesStorage = seenMoviesStorage
+        self.wishMoviesStorage = wishMoviesStorage
     }
     
     func makeMovieDetailView(movie: Movie) -> MovieDetailView {
-        return MovieDetailView(viewModel: .init(repository: repository, seenMoviesStorage: seenMoviesStorage, movie: movie))
+        return MovieDetailView(
+            viewModel: .init(
+                repository: repository,
+                seenMoviesStorage: seenMoviesStorage,
+                wishMoviesStorage: wishMoviesStorage,
+                movie: movie)
+        )
     }
     
     func makeMoviesListView(path: MovieListPath) -> MoviesListView {

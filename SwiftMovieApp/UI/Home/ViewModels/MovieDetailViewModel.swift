@@ -13,6 +13,7 @@ import Combine
 class MovieDetailViewModel {
     let repository: MoviesHomeRepository
     let seenMoviesStorage: SeenMoviesStorage
+    let wishMoviesStorage: WishMoviesStorage
     var movie: Movie
     var cast: CastResponse?
     var recommendedMovies: [Movie]?
@@ -23,11 +24,13 @@ class MovieDetailViewModel {
     var isInSeenlist: Bool = false
     private var bags: Set<AnyCancellable> = .init()
     
-    init(repository: MoviesHomeRepository, seenMoviesStorage: SeenMoviesStorage, movie: Movie) {
+    init(repository: MoviesHomeRepository, seenMoviesStorage: SeenMoviesStorage, wishMoviesStorage: WishMoviesStorage, movie: Movie) {
         self.repository = repository
         self.seenMoviesStorage = seenMoviesStorage
+        self.wishMoviesStorage = wishMoviesStorage
         self.movie = movie
         
+        isInWishlist = wishMoviesStorage.queryAllItems().contains(movie)
         isInSeenlist = seenMoviesStorage.queryAllItems().contains(movie)
     }
     
@@ -114,5 +117,15 @@ class MovieDetailViewModel {
     func removeFromSeenList() {
         isInSeenlist = false
         seenMoviesStorage.remove(movie)
+    }
+    
+    func addToWishList() {
+        isInWishlist = true
+        wishMoviesStorage.save(movie)
+    }
+    
+    func removeFromWishList() {
+        isInWishlist = false
+        wishMoviesStorage.remove(movie)
     }
 }

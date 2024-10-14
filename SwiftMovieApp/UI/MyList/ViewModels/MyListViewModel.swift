@@ -26,22 +26,24 @@ enum MoviesListType: Int {
 @Observable
 class MyListViewModel {
     let seenMoviesStorage: SeenMoviesStorage
+    let wishMoviesStorage: WishMoviesStorage
     var showMovies: [Movie] = []
     private var seenMovies: [Movie] = []
     private var wishMovies: [Movie] = []
-    var listType: MoviesListType = .seen {
+    var listType: MoviesListType = .wish {
         didSet {
             refreshShowMovies()
         }
     }
     
-    init(seenMoviesStorage: SeenMoviesStorage) {
+    init(seenMoviesStorage: SeenMoviesStorage, wishMoviesStorage: WishMoviesStorage) {
         self.seenMoviesStorage = seenMoviesStorage
+        self.wishMoviesStorage = wishMoviesStorage
     }
     
     func loadData() {
         seenMovies = seenMoviesStorage.queryAllItems()
-        wishMovies = []
+        wishMovies = wishMoviesStorage.queryAllItems()
         refreshShowMovies()
     }
     
