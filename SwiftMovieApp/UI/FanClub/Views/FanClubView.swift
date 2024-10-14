@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FanClubView: View {
-    let coordinator: FanClubCoordinator
+    let coordinator: UIModuleCoordinator
     @State var viewModel: FanClubViewModel
     @State private var navigation: Navigation = .init()
     
@@ -62,7 +62,7 @@ struct FanClubView: View {
                 }
             }
             .coordinateSpace(.named("list"))
-            .registerFanClubNavigationDestinations(with: coordinator)
+            .registerUIModuleNavigationDestinations(with: coordinator)
             .navigationTitle("Fan Club")
             .navigationBarTitleDisplayMode(.automatic)
             .showLoading($viewModel.isLoading)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyListView: View {
-    let coordinator: MyListCoordinator
+    let coordinator: UIModuleCoordinator
     @State var viewModel: MyListViewModel
     @State var navigation: Navigation = .init()
     
@@ -37,7 +37,7 @@ struct MyListView: View {
 
             }
             .navigationTitle("My List")
-            .registerMyListNavigationDestinations(with: coordinator)
+            .registerUIModuleNavigationDestinations(with: coordinator)
     //        .listStyle(PlainListStyle())
             .onAppear {
                 viewModel.loadData()

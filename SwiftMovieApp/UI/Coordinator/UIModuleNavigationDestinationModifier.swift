@@ -1,15 +1,15 @@
 //
-//  FanClubNavigationDestinationModifier.swift
+//  MyListNavigationDestinationModifier.swift
 //  SwiftMovieApp
 //
-//  Created by Jiaxin Pu on 2024/9/27.
+//  Created by Jiaxin Pu on 2024/10/14.
 //
 
 import Foundation
 import SwiftUI
 
-struct FanClubNavigationDestinationModifier: ViewModifier {
-    let coordinator: FanClubCoordinator
+struct UIModuleNavigationDestinationModifier: ViewModifier {
+    let coordinator: UIModuleCoordinator
     
     func body(content: Content) -> some View {
         return content
@@ -33,7 +33,7 @@ struct FanClubNavigationDestinationModifier: ViewModifier {
 }
 
 extension View {
-    func registerFanClubNavigationDestinations(with coordinator: FanClubCoordinator) -> some View {
-        return ModifiedContent(content: self, modifier: FanClubNavigationDestinationModifier(coordinator: coordinator))
+    func registerUIModuleNavigationDestinations(with coordinator: UIModuleCoordinator) -> some View {
+        return ModifiedContent(content: self, modifier: UIModuleNavigationDestinationModifier(coordinator: coordinator))
     }
 }

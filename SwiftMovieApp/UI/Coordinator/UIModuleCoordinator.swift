@@ -1,15 +1,14 @@
 //
-//  MoviesHomeCoordinator.swift
+//  MyListCoordinator.swift
 //  SwiftMovieApp
 //
-//  Created by Jiaxin Pu on 2024/9/27.
+//  Created by Jiaxin Pu on 2024/10/14.
 //
 
 import Foundation
-import SwiftUI
 
-class MoviesHomeCoordinator {
-    let repository: MoviesRepository
+class UIModuleCoordinator {
+    let moviesRepository: MoviesRepository
     let peopleRepository: PeopleRepository
     let fanClubPeopleStorage: FanClubPeopleStorage
     let seenMoviesStorage: SeenMoviesStorage
@@ -22,7 +21,7 @@ class MoviesHomeCoordinator {
         seenMoviesStorage: SeenMoviesStorage,
         wishMoviesStorage: WishMoviesStorage
     ) {
-        self.repository = repository
+        self.moviesRepository = repository
         self.peopleRepository = peopleRepository
         self.fanClubPeopleStorage = fanClubPeopleStorage
         self.seenMoviesStorage = seenMoviesStorage
@@ -33,18 +32,22 @@ class MoviesHomeCoordinator {
         return MovieDetailView(
             viewModel: .init(
                 useCase: DefaultMovieDetailUseCase(
-                    repository: repository,
+                    repository: moviesRepository,
                     seenMoviesStorage: seenMoviesStorage,
                     wishMoviesStorage: wishMoviesStorage
                 ),
-                movie: movie
-            )
+                movie: movie)
         )
     }
     
     func makeMoviesListView(path: MovieListPath) -> MoviesListView {
         return MoviesListView(
-            viewModel: .init(listType: path.listType, repository: repository, peopleRepository: peopleRepository, movies: path.movies),
+            viewModel: .init(
+                listType: path.listType,
+                repository: moviesRepository,
+                peopleRepository: peopleRepository,
+                movies: path.movies
+            ),
             naviTitle: path.naviTitle
         )
     }

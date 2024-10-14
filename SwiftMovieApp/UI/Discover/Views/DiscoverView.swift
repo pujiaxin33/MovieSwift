@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DiscoverView: View {
-    let coordinator: DiscoverCoordinator
+    let coordinator: UIModuleCoordinator
     @State var viewModel: DiscoverViewModel
     @State private var navigation = Navigation()
     @State private var listId: UUID = UUID()
@@ -47,7 +47,7 @@ struct DiscoverView: View {
                 }
             }
             .navigationTitle("Discover")
-            .registerDiscoverNavigationDestinations(with: coordinator)
+            .registerUIModuleNavigationDestinations(with: coordinator)
             .onFirstAppear {
                 viewModel.loadData()
             }

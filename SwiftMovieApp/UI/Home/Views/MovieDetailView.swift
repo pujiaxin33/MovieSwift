@@ -35,7 +35,7 @@ struct MovieDetailView: View {
                            color: .pink,
                            isOn: isInWishlist,
                            action: {
-                if isInSeenlist {
+                if isInWishlist {
                     viewModel.removeFromWishList()
                 } else {
                     viewModel.addToWishList()

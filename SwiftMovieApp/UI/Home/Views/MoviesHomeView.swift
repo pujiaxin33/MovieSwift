@@ -21,7 +21,7 @@ struct MoviesHomeView: View {
         }
     }
     
-    let coordinator: MoviesHomeCoordinator
+    let coordinator: UIModuleCoordinator
     @State var viewModel: MoviesHomeViewModel
     @State private var navigation = Navigation()
     @State private var selectedMenu: MoviesMenu = .nowPlaying
@@ -80,7 +80,7 @@ struct MoviesHomeView: View {
                     homeAsGrid
                 }
             }
-            .registerMoviesNavigationDestinations(with: coordinator)
+            .registerUIModuleNavigationDestinations(with: coordinator)
             .navigationTitle("Movies")
             .navigationBarTitleDisplayMode(homeMode == .list ? .inline : .automatic)
             .toolbar {
