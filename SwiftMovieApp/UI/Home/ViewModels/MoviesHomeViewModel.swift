@@ -12,13 +12,13 @@ import Observation
 
 @Observable
 class MoviesHomeViewModel {
-    let repository: MoviesHomeRepository
+    let repository: MoviesRepository
     var movies: [MoviesMenu : [Movie]] = [:]
     var genres: [Genre] = []
     
     private var bags: Set<AnyCancellable> = .init()
     
-    init(repository: MoviesHomeRepository) {
+    init(repository: MoviesRepository) {
         self.repository = repository
     }
     

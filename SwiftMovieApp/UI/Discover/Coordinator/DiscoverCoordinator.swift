@@ -8,14 +8,14 @@
 import Foundation
 
 class DiscoverCoordinator {
-    let repository: MoviesHomeRepository
+    let repository: MoviesRepository
     let peopleRepository: PeopleRepository
     let fanClubPeopleStorage: FanClubPeopleStorage
     let seenMoviesStorage: SeenMoviesStorage
     let wishMoviesStorage: WishMoviesStorage
     
     init(
-        repository: MoviesHomeRepository,
+        repository: MoviesRepository,
         peopleRepository: PeopleRepository,
         fanClubPeopleStorage: FanClubPeopleStorage,
         seenMoviesStorage: SeenMoviesStorage,

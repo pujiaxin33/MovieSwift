@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol MoviesHomeRepository {
+protocol MoviesRepository {
     func fetchMovies(menu: MoviesMenu, params: [String: Any]) -> AnyPublisher<PaginatedResponse<Movie>, Error>
     func fetchGenres(params: [String: Any]) -> AnyPublisher<GenresResponse, Error>
     func fetchMovieDetail(id: Int, params: [String: Any]) -> AnyPublisher<Movie, Error>

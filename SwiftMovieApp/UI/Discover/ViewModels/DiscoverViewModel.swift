@@ -11,11 +11,11 @@ import Combine
 
 @Observable
 class DiscoverViewModel {
-    let repository: MoviesHomeRepository
+    let repository: MoviesRepository
     private(set) var movies: [Movie] = []
     private var bags: Set<AnyCancellable> = .init()
     
-    init(repository: MoviesHomeRepository) {
+    init(repository: MoviesRepository) {
         self.repository = repository
     }
     

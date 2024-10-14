@@ -9,7 +9,7 @@ import Foundation
 import Networking
 import Combine
 
-class DefaultMoviesHomeRepository: MoviesHomeRepository {
+class DefaultMoviesRepository: MoviesRepository {
     let apiService: APIService
     
     init(apiService: APIService) {

@@ -32,7 +32,7 @@ class MoviesListViewModel {
     }
     
     let listType: MoviesListViewModel.ListType
-    let repository: MoviesHomeRepository
+    let repository: MoviesRepository
     let peopleRepository: PeopleRepository
     private(set) var movies: [Movie]
     private(set) var searchMovies: [Movie] = []
@@ -40,7 +40,7 @@ class MoviesListViewModel {
     private(set) var searchPeoples: [People] = []
     private var bags: Set<AnyCancellable> = .init()
     
-    init(listType: MoviesListViewModel.ListType, repository: MoviesHomeRepository, peopleRepository: PeopleRepository, movies: [Movie]) {
+    init(listType: MoviesListViewModel.ListType, repository: MoviesRepository, peopleRepository: PeopleRepository, movies: [Movie]) {
         self.listType = listType
         self.repository = repository
         self.peopleRepository = peopleRepository

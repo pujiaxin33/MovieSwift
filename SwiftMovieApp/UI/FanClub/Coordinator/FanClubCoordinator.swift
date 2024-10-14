@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 class FanClubCoordinator {
-    let moviesRepository: MoviesHomeRepository
+    let moviesRepository: MoviesRepository
     let fanClubRepository: FanClubRepository
     let peopleRepository: PeopleRepository
     let fanClubPeopleStorage: FanClubPeopleStorage
     let seenMoviesStorage: SeenMoviesStorage
     let wishMoviesStorage: WishMoviesStorage
     
-    init(moviesRepository: MoviesHomeRepository, 
+    init(moviesRepository: MoviesRepository, 
          fanClubRepository: FanClubRepository,
          peopleRepository: PeopleRepository,
          fanClubPeopleStorage: FanClubPeopleStorage,

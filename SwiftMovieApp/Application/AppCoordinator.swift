@@ -16,7 +16,7 @@ class AppCoordinator {
     private let wishMoviesStorage: WishMoviesStorage = DefaultWishMoviesStorage()
     
     func makeMoviesHomeView() -> MoviesHomeView {
-        let movieRepository = DefaultMoviesHomeRepository(apiService: apiService)
+        let movieRepository = DefaultMoviesRepository(apiService: apiService)
         let peopleRepository = DefaultPeopleRepository(apiService: apiService)
         let coordinator: MoviesHomeCoordinator = .init(
             repository: movieRepository,
@@ -30,7 +30,7 @@ class AppCoordinator {
     }
     
     func makeFanClubView() -> FanClubView {
-        let movieRepository = DefaultMoviesHomeRepository(apiService: apiService)
+        let movieRepository = DefaultMoviesRepository(apiService: apiService)
         let peopleRepository = DefaultPeopleRepository(apiService: apiService)
         let fanClubRepository = DefaultFanClubRepository(apiService: apiService)
         let coordinator: FanClubCoordinator = .init(
@@ -47,7 +47,7 @@ class AppCoordinator {
     }
     
     func makeDiscoverView() -> DiscoverView {
-        let movieRepository = DefaultMoviesHomeRepository(apiService: apiService)
+        let movieRepository = DefaultMoviesRepository(apiService: apiService)
         let peopleRepository = DefaultPeopleRepository(apiService: apiService)
         let viewMoel = DiscoverViewModel(repository: movieRepository)
         let coordinator: DiscoverCoordinator = .init(
@@ -61,7 +61,7 @@ class AppCoordinator {
     }
     
     func makeMyListView() -> MyListView {
-        let movieRepository = DefaultMoviesHomeRepository(apiService: apiService)
+        let movieRepository = DefaultMoviesRepository(apiService: apiService)
         let peopleRepository = DefaultPeopleRepository(apiService: apiService)
         let viewMoel = MyListViewModel(useCase: DefaultMyListUseCase(seenMoviesStorage: seenMoviesStorage, wishMoviesStorage: wishMoviesStorage))
         let coordinator: MyListCoordinator = .init(

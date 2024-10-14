@@ -17,11 +17,11 @@ protocol MovieDetailUseCase {
 }
 
 class DefaultMovieDetailUseCase: MovieDetailUseCase {
-    private let repository: MoviesHomeRepository
+    private let repository: MoviesRepository
     private let seenMoviesStorage: SeenMoviesStorage
     private let wishMoviesStorage: WishMoviesStorage
 
-    init(repository: MoviesHomeRepository, seenMoviesStorage: SeenMoviesStorage, wishMoviesStorage: WishMoviesStorage) {
+    init(repository: MoviesRepository, seenMoviesStorage: SeenMoviesStorage, wishMoviesStorage: WishMoviesStorage) {
         self.repository = repository
         self.seenMoviesStorage = seenMoviesStorage
         self.wishMoviesStorage = wishMoviesStorage
