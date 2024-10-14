@@ -64,6 +64,7 @@ struct MoviesListView: View {
                 }
                 
             } else {
+                let _ = print("create movies list")
                 ForEach(viewModel.movies) { movie in
                     MovieCardView(movie: movie)
                 }
@@ -85,7 +86,7 @@ struct MoviesListView: View {
                 viewModel.resetSearchData()
             }
         }
-        .onAppear {
+        .onAppear() {
             viewModel.fetchMovies()
         }
     }

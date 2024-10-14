@@ -12,6 +12,7 @@ class AppCoordinator {
     private let apiService = DefaultAPIService.shared
 //    private let apiService = MockAPIService(result: .failure(MockAPIService.MockError.test))
     private let fanClubPeopleStorage: FanClubPeopleStorage = DefaultFanClubPeopleStorage()
+    private let seenMoviesStorage: SeenMoviesStorage = DefaultSeenMoviesStorage()
     
     func makeMoviesHomeView() -> MoviesHomeView {
         let movieRepository = DefaultMoviesHomeRepository(apiService: apiService)
@@ -19,7 +20,8 @@ class AppCoordinator {
         let coordinator: MoviesHomeCoordinator = .init(
             repository: movieRepository,
             peopleRepository: peopleRepository,
-            fanClubPeopleStorage: fanClubPeopleStorage
+            fanClubPeopleStorage: fanClubPeopleStorage,
+            seenMoviesStorage: seenMoviesStorage
         )
         let viewModel: MoviesHomeViewModel = .init(repository: movieRepository)
         return .init(coordinator: coordinator, viewModel: viewModel)
@@ -33,7 +35,8 @@ class AppCoordinator {
             moviesRepository: movieRepository,
             fanClubRepository: fanClubRepository,
             peopleRepository: peopleRepository,
-            fanClubPeopleStorage: fanClubPeopleStorage
+            fanClubPeopleStorage: fanClubPeopleStorage,
+            seenMoviesStorage: seenMoviesStorage
         )
         let useCase = DefaultFanClubUseCase(repository: fanClubRepository, storage: fanClubPeopleStorage)
         let viewModel: FanClubViewModel = .init(useCase: useCase)
@@ -47,12 +50,27 @@ class AppCoordinator {
         let coordinator: DiscoverCoordinator = .init(
             repository: movieRepository,
             peopleRepository: peopleRepository,
-            fanClubPeopleStorage: fanClubPeopleStorage
+            fanClubPeopleStorage: fanClubPeopleStorage,
+            seenMoviesStorage: seenMoviesStorage
         )
         return DiscoverView(coordinator: coordinator, viewModel: viewMoel)
     }
     
+    func makeMyListView() -> MyListView {
+        let movieRepository = DefaultMoviesHomeRepository(apiService: apiService)
+        let peopleRepository = DefaultPeopleRepository(apiService: apiService)
+        let viewMoel = MyListViewModel(seenMoviesStorage: seenMoviesStorage)
+        let coordinator: MyListCoordinator = .init(
+            repository: movieRepository,
+            peopleRepository: peopleRepository,
+            fanClubPeopleStorage: fanClubPeopleStorage,
+            seenMoviesStorage: seenMoviesStorage
+        )
+        return MyListView(coordinator: coordinator, viewModel: viewMoel)
+    }
+    
     func createStorageTables() {
         fanClubPeopleStorage.createTable()
+        seenMoviesStorage.createTable()
     }
 }

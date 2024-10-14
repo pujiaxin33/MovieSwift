@@ -13,7 +13,7 @@ struct SwiftMovieAppApp: App {
     private let coordinator: AppCoordinator = .init()
     
     init() {
-//        coordinator.createStorageTables()
+        coordinator.createStorageTables()
     }
     
     var body: some Scene {
@@ -31,7 +31,7 @@ struct SwiftMovieAppApp: App {
                     Label("Fan Club", systemImage: "star.circle.fill")
                 }
                 
-                Text("My Lists").tabItem {
+                coordinator.makeMyListView().tabItem {
                     Label("My Lists", systemImage: "heart.circle.fill")
                 }
             }

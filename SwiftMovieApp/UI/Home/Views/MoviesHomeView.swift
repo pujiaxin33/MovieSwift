@@ -39,6 +39,7 @@ struct MoviesHomeView: View {
     
     @ViewBuilder
     var homeAsList: some View {
+        let _ = Self._printChanges()
         TabView(selection: $selectedMenu) {
             ForEach(MoviesMenu.allCases, id: \.self) { menu in
                 if menu == .genres {

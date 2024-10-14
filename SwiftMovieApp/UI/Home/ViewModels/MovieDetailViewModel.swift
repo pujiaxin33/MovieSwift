@@ -12,17 +12,23 @@ import Combine
 @Observable
 class MovieDetailViewModel {
     let repository: MoviesHomeRepository
+    let seenMoviesStorage: SeenMoviesStorage
     var movie: Movie
     var cast: CastResponse?
     var recommendedMovies: [Movie]?
     var similarMovies: [Movie]?
     var reviews: [Review]?
     var videos: [Video]?
+    var isInWishlist: Bool = false
+    var isInSeenlist: Bool = false
     private var bags: Set<AnyCancellable> = .init()
     
-    init(repository: MoviesHomeRepository, movie: Movie) {
+    init(repository: MoviesHomeRepository, seenMoviesStorage: SeenMoviesStorage, movie: Movie) {
         self.repository = repository
+        self.seenMoviesStorage = seenMoviesStorage
         self.movie = movie
+        
+        isInSeenlist = seenMoviesStorage.queryAllItems().contains(movie)
     }
     
     func loadData() {
@@ -98,5 +104,15 @@ class MovieDetailViewModel {
             } receiveValue: { (data: PaginatedResponse<Video>) in
                 self.videos = data.results
             }.store(in: &bags)
+    }
+    
+    func addToSeenList() {
+        isInSeenlist = true
+        seenMoviesStorage.save(movie)
+    }
+    
+    func removeFromSeenList() {
+        isInSeenlist = false
+        seenMoviesStorage.remove(movie)
     }
 }

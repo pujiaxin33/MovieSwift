@@ -110,7 +110,7 @@ class PeopleDetailViewModel {
     }
     
     func isFavoritePeople(people: People) -> Bool {
-        return favoritePeoples.contains(people)
+        return favoritePeoples.map { $0.id}.contains(people.id)
     }
 }
 

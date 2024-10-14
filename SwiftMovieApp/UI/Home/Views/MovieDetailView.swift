@@ -28,9 +28,40 @@ struct MovieDetailView: View {
         }
     }
     
+    func addToListView(isInWishlist: Bool, isInSeenlist: Bool) -> some View {
+        HStack(alignment: .center, spacing: 8) {
+            BorderedButton(text: isInWishlist ? "In wishlist" : "Wishlist",
+                           systemImageName: "heart",
+                           color: .pink,
+                           isOn: isInWishlist,
+                           action: {
+//                            if isInWishlist {
+//                                store.dispatch(action: MoviesActions.RemoveFromWishlist(movie: self.movieId))
+//                            } else {
+//                                store.dispatch(action: MoviesActions.AddToWishlist(movie: self.movieId))
+//                            }
+                           })
+            
+            BorderedButton(text: isInSeenlist ? "Seen" : "Seenlist",
+                           systemImageName: "eye",
+                           color: .green,
+                           isOn: isInSeenlist,
+                           action: {
+                            if isInSeenlist {
+                                viewModel.removeFromSeenList()
+                            } else {
+                                viewModel.addToSeenList()
+                            }
+                           })
+        }
+        .padding(.vertical, 8)
+    }
+    
     var headerSection: some View {
         Section {
             MovieDetailBasicInfoHeaderView(movie: viewModel.movie)
+            
+            addToListView(isInWishlist: viewModel.isInWishlist, isInSeenlist: viewModel.isInSeenlist)
             
             if let reviews = viewModel.reviews, !reviews.isEmpty {
                 MovieDetailReviewsView(reviews: reviews)

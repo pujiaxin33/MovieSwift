@@ -11,15 +11,17 @@ class DiscoverCoordinator {
     let repository: MoviesHomeRepository
     let peopleRepository: PeopleRepository
     let fanClubPeopleStorage: FanClubPeopleStorage
+    let seenMoviesStorage: SeenMoviesStorage
     
-    init(repository: MoviesHomeRepository, peopleRepository: PeopleRepository, fanClubPeopleStorage: FanClubPeopleStorage) {
+    init(repository: MoviesHomeRepository, peopleRepository: PeopleRepository, fanClubPeopleStorage: FanClubPeopleStorage, seenMoviesStorage: SeenMoviesStorage) {
         self.repository = repository
         self.peopleRepository = peopleRepository
         self.fanClubPeopleStorage = fanClubPeopleStorage
+        self.seenMoviesStorage = seenMoviesStorage
     }
     
     func makeMovieDetailView(movie: Movie) -> MovieDetailView {
-        return MovieDetailView(viewModel: .init(repository: repository, movie: movie))
+        return MovieDetailView(viewModel: .init(repository: repository, seenMoviesStorage: seenMoviesStorage, movie: movie))
     }
     
     func makeMoviesListView(path: MovieListPath) -> MoviesListView {

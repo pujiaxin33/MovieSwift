@@ -68,6 +68,12 @@ struct Movie: Codable, Identifiable, Hashable {
     }
 }
 
+extension Movie: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 let sampleMovie = Movie(id: 0,
                         original_title: "Test movie",
                         title: "Test movie",
