@@ -63,7 +63,7 @@ class AppCoordinator {
     func makeMyListView() -> MyListView {
         let movieRepository = DefaultMoviesHomeRepository(apiService: apiService)
         let peopleRepository = DefaultPeopleRepository(apiService: apiService)
-        let viewMoel = MyListViewModel(seenMoviesStorage: seenMoviesStorage, wishMoviesStorage: wishMoviesStorage)
+        let viewMoel = MyListViewModel(useCase: DefaultMyListUseCase(seenMoviesStorage: seenMoviesStorage, wishMoviesStorage: wishMoviesStorage))
         let coordinator: MyListCoordinator = .init(
             repository: movieRepository,
             peopleRepository: peopleRepository,

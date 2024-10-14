@@ -32,9 +32,11 @@ class MoviesHomeCoordinator {
     func makeMovieDetailView(movie: Movie) -> MovieDetailView {
         return MovieDetailView(
             viewModel: .init(
-                repository: repository,
-                seenMoviesStorage: seenMoviesStorage,
-                wishMoviesStorage: wishMoviesStorage,
+                useCase: DefaultMovieDetailUseCase(
+                    repository: repository,
+                    seenMoviesStorage: seenMoviesStorage,
+                    wishMoviesStorage: wishMoviesStorage
+                ),
                 movie: movie
             )
         )

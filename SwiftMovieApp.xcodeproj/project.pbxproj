@@ -47,6 +47,8 @@
 		B2AFFA382CBCFB1E00630365 /* MyListNavigationDestinationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AFFA372CBCFB1E00630365 /* MyListNavigationDestinationModifier.swift */; };
 		B2AFFA3A2CBCFB9700630365 /* WishMoviesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AFFA392CBCFB9700630365 /* WishMoviesStorage.swift */; };
 		B2AFFA3C2CBD020400630365 /* PopularityBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AFFA3B2CBD020400630365 /* PopularityBadge.swift */; };
+		B2AFFA3F2CBD067E00630365 /* MovieDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AFFA3D2CBD067D00630365 /* MovieDetailUseCase.swift */; };
+		B2AFFA402CBD067E00630365 /* MyListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AFFA3E2CBD067D00630365 /* MyListUseCase.swift */; };
 		B2B496922CA260AB009228E4 /* Integration in Frameworks */ = {isa = PBXBuildFile; productRef = B2B496912CA260AB009228E4 /* Integration */; };
 		B2B496952CA2AE32009228E4 /* PosterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B496942CA2AE32009228E4 /* PosterStyle.swift */; };
 		B2B496972CA39DF2009228E4 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B496962CA39DF2009228E4 /* MovieDetailView.swift */; };
@@ -157,6 +159,8 @@
 		B2AFFA372CBCFB1E00630365 /* MyListNavigationDestinationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListNavigationDestinationModifier.swift; sourceTree = "<group>"; };
 		B2AFFA392CBCFB9700630365 /* WishMoviesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishMoviesStorage.swift; sourceTree = "<group>"; };
 		B2AFFA3B2CBD020400630365 /* PopularityBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityBadge.swift; sourceTree = "<group>"; };
+		B2AFFA3D2CBD067D00630365 /* MovieDetailUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailUseCase.swift; sourceTree = "<group>"; };
+		B2AFFA3E2CBD067D00630365 /* MyListUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyListUseCase.swift; sourceTree = "<group>"; };
 		B2B496942CA2AE32009228E4 /* PosterStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterStyle.swift; sourceTree = "<group>"; };
 		B2B496962CA39DF2009228E4 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 		B2B496982CA3A1EB009228E4 /* Movie+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+Ex.swift"; sourceTree = "<group>"; };
@@ -366,6 +370,8 @@
 			isa = PBXGroup;
 			children = (
 				B29E2A932CB529D2004054C5 /* FanClubUseCase.swift */,
+				B2AFFA3D2CBD067D00630365 /* MovieDetailUseCase.swift */,
+				B2AFFA3E2CBD067D00630365 /* MyListUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -784,6 +790,7 @@
 				B2C3B59A2CA16C5A00D9C552 /* Keyword.swift in Sources */,
 				B2AFFA382CBCFB1E00630365 /* MyListNavigationDestinationModifier.swift in Sources */,
 				B23E8BA62CB7C3CC008F3CD8 /* DiscoverViewModel.swift in Sources */,
+				B2AFFA402CBD067E00630365 /* MyListUseCase.swift in Sources */,
 				B23E8B9F2CB7B0D4008F3CD8 /* LayoutData.swift in Sources */,
 				B24A6AC82CA6922A00E4032D /* FanClubRepository.swift in Sources */,
 				B2B496972CA39DF2009228E4 /* MovieDetailView.swift in Sources */,
@@ -836,6 +843,7 @@
 				B2B496A72CA3FE35009228E4 /* NavigationPath.swift in Sources */,
 				B29E2A8B2CB5032C004054C5 /* ShowLoadingModifier.swift in Sources */,
 				B2C3B5972CA16C5A00D9C552 /* Genre.swift in Sources */,
+				B2AFFA3F2CBD067E00630365 /* MovieDetailUseCase.swift in Sources */,
 				B24A6AB82CA6870F00E4032D /* DefaultMoviesHomeRepository.swift in Sources */,
 				B29E2A9C2CB62D60004054C5 /* ConditionalModifier.swift in Sources */,
 				B2ECFC8C2CA547050026857C /* PeopleDetailBiographyRow.swift in Sources */,

@@ -22,37 +22,51 @@ enum MoviesListType: Int {
     }
 }
 
-
 @Observable
 class MyListViewModel {
-    let seenMoviesStorage: SeenMoviesStorage
-    let wishMoviesStorage: WishMoviesStorage
+    private let useCase: MyListUseCase
     var showMovies: [Movie] = []
-    private var seenMovies: [Movie] = []
-    private var wishMovies: [Movie] = []
     var listType: MoviesListType = .wish {
         didSet {
             refreshShowMovies()
         }
     }
-    
-    init(seenMoviesStorage: SeenMoviesStorage, wishMoviesStorage: WishMoviesStorage) {
-        self.seenMoviesStorage = seenMoviesStorage
-        self.wishMoviesStorage = wishMoviesStorage
+
+    init(useCase: MyListUseCase) {
+        self.useCase = useCase
+        loadData()
     }
-    
+
     func loadData() {
-        seenMovies = seenMoviesStorage.queryAllItems()
-        wishMovies = wishMoviesStorage.queryAllItems()
         refreshShowMovies()
     }
-    
+
     func refreshShowMovies() {
         switch listType {
         case .wish:
-            showMovies = wishMovies
+            showMovies = useCase.fetchWishMovies()
         case .seen:
-            showMovies = seenMovies
+            showMovies = useCase.fetchSeenMovies()
         }
+    }
+
+    func addToSeenList(movie: Movie) {
+        useCase.saveToSeenList(movie: movie)
+        refreshShowMovies()
+    }
+
+    func removeFromSeenList(movie: Movie) {
+        useCase.removeFromSeenList(movie: movie)
+        refreshShowMovies()
+    }
+
+    func addToWishList(movie: Movie) {
+        useCase.saveToWishList(movie: movie)
+        refreshShowMovies()
+    }
+
+    func removeFromWishList(movie: Movie) {
+        useCase.removeFromWishList(movie: movie)
+        refreshShowMovies()
     }
 }

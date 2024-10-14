@@ -11,9 +11,7 @@ import Combine
 
 @Observable
 class MovieDetailViewModel {
-    let repository: MoviesHomeRepository
-    let seenMoviesStorage: SeenMoviesStorage
-    let wishMoviesStorage: WishMoviesStorage
+    private let useCase: MovieDetailUseCase
     var movie: Movie
     var cast: CastResponse?
     var recommendedMovies: [Movie]?
@@ -23,32 +21,32 @@ class MovieDetailViewModel {
     var isInWishlist: Bool = false
     var isInSeenlist: Bool = false
     private var bags: Set<AnyCancellable> = .init()
-    
-    init(repository: MoviesHomeRepository, seenMoviesStorage: SeenMoviesStorage, wishMoviesStorage: WishMoviesStorage, movie: Movie) {
-        self.repository = repository
-        self.seenMoviesStorage = seenMoviesStorage
-        self.wishMoviesStorage = wishMoviesStorage
+
+    init(useCase: MovieDetailUseCase, movie: Movie) {
+        self.useCase = useCase
         self.movie = movie
         
-        isInWishlist = wishMoviesStorage.queryAllItems().contains(movie)
-        isInSeenlist = seenMoviesStorage.queryAllItems().contains(movie)
+        isInWishlist = useCase.fetchWishMovies().contains(movie)
+        isInSeenlist = useCase.fetchSeenMovies().contains(movie)
     }
-    
+
     func loadData() {
         let params = ["append_to_response": "keywords,images",
                       "include_image_language": "\(Locale.current.language.languageCode?.identifier ?? "en"),en,null"]
-        repository.fetchMovieDetail(id: movie.id, params: params).sink { completion in
-            switch completion {
-            case .finished:
-                break
-            case .failure(let error):
-                print(error)
-            }
-        } receiveValue: { (data: Movie) in
-            self.movie = data
-        }.store(in: &bags)
         
-        repository.fetchMovieCredits(id: movie.id)
+        useCase.fetchMovieDetail(id: movie.id, params: params)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    print(error)
+                }
+            } receiveValue: { (data: Movie) in
+                self.movie = data
+            }.store(in: &bags)
+
+        useCase.fetchMovieCredits(id: movie.id)
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -60,7 +58,7 @@ class MovieDetailViewModel {
                 self.cast = data
             }.store(in: &bags)
 
-        repository.fetchRecommendedMovies(id:  movie.id)
+        useCase.fetchRecommendedMovies(id: movie.id)
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -71,8 +69,8 @@ class MovieDetailViewModel {
             } receiveValue: { (data: PaginatedResponse<Movie>) in
                 self.recommendedMovies = data.results
             }.store(in: &bags)
-        
-        repository.fetchSimilarMovies(id:  movie.id)
+
+        useCase.fetchSimilarMovies(id: movie.id)
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -83,8 +81,8 @@ class MovieDetailViewModel {
             } receiveValue: { (data: PaginatedResponse<Movie>) in
                 self.similarMovies = data.results
             }.store(in: &bags)
-        
-        repository.fetchMovieReviews(id:  movie.id, params: ["language": Locale.current.language.languageCode?.identifier ?? "zh-CN"])
+
+        useCase.fetchMovieReviews(id: movie.id, params: ["language": Locale.current.language.languageCode?.identifier ?? "zh-CN"])
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -93,10 +91,10 @@ class MovieDetailViewModel {
                     print(error)
                 }
             } receiveValue: { (data: PaginatedResponse<Review>) in
-                self.reviews = sampleReviews
+                self.reviews = data.results
             }.store(in: &bags)
-        
-        repository.fetchMovieVideos(id: movie.id)
+
+        useCase.fetchMovieVideos(id: movie.id)
             .sink { completion in
                 switch completion {
                 case .finished:
@@ -108,24 +106,24 @@ class MovieDetailViewModel {
                 self.videos = data.results
             }.store(in: &bags)
     }
-    
+
     func addToSeenList() {
         isInSeenlist = true
-        seenMoviesStorage.save(movie)
+        useCase.saveToSeenList(movie: movie)
     }
-    
+
     func removeFromSeenList() {
         isInSeenlist = false
-        seenMoviesStorage.remove(movie)
+        useCase.removeFromSeenList(movie: movie)
     }
-    
+
     func addToWishList() {
         isInWishlist = true
-        wishMoviesStorage.save(movie)
+        useCase.saveToWishList(movie: movie)
     }
-    
+
     func removeFromWishList() {
         isInWishlist = false
-        wishMoviesStorage.remove(movie)
+        useCase.removeFromWishList(movie: movie)
     }
 }

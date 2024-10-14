@@ -32,7 +32,15 @@ class FanClubCoordinator {
     }
     
     func makeMovieDetailView(movie: Movie) -> MovieDetailView {
-        return MovieDetailView(viewModel: .init(repository: moviesRepository, seenMoviesStorage: seenMoviesStorage, wishMoviesStorage: wishMoviesStorage, movie: movie))
+        return MovieDetailView(
+            viewModel: .init(
+                useCase: DefaultMovieDetailUseCase(
+                    repository: moviesRepository,
+                    seenMoviesStorage: seenMoviesStorage,
+                    wishMoviesStorage: wishMoviesStorage
+                ),
+                movie: movie)
+        )
     }
     
     func makeMoviesListView(path: MovieListPath) -> MoviesListView {
