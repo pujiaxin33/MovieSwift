@@ -23,6 +23,7 @@ struct MoviesListView: View {
     private let publisher: PassthroughSubject<String, Never> = .init()
     
     var body: some View {
+        let _ = Self._printChanges()
         List {
             if isSearching {
                 Picker(selection: $selectedSearchFilter) {

@@ -45,7 +45,7 @@ struct MoviesHomeView: View {
                     GenreListView(genres: viewModel.genres)
                         .tag(menu)
                 } else {
-                    coordinator.makeMoviesListView(path: .init(listType: .menu(menu), naviTitle: menu.title(), movies: []))
+                    coordinator.makeMoviesListView(path: .init(listType: .local, naviTitle: menu.title(), movies: viewModel.movies[menu] ?? []))
                         .tag(menu)
                 }
             }
@@ -87,7 +87,7 @@ struct MoviesHomeView: View {
                     swapHomeButton
                 }
             }
-            .onAppear {
+            .onFirstAppear {
                 viewModel.loadData()
             }
         }.environment(\.navigation, navigation)
