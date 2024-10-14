@@ -37,15 +37,15 @@ struct FanClubView: View {
                     }
                 }
                 
-                if let peoples = viewModel.peoples {
+                if !viewModel.peoples.isEmpty {
                     Section(header: sectionHeader(title: "Popular people to add to your fan club", isFirstSection: viewModel.favoritePeople.isEmpty)) {
-                        ForEach(peoples) { people in
+                        ForEach(viewModel.peoples) { people in
                             PeopleCardView(people: people)
                         }
                     }
                 }
                 
-                if !viewModel.isLoadFinished {
+                if !viewModel.isLoadFinished && (!viewModel.favoritePeople.isEmpty || !viewModel.peoples.isEmpty) {
                     Section {
                         VStack(alignment: .center) {
                             ProgressView()

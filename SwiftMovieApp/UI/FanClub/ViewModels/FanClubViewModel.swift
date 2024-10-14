@@ -12,7 +12,7 @@ import Observation
 
 @Observable
 class FanClubViewModel {
-    private(set) var peoples: [People]?
+    private(set) var peoples: [People] = []
     private(set) var favoritePeople: [People] = []
     private(set) var currentPage: Int = 1
     var isLoading: Bool = false
@@ -45,7 +45,7 @@ class FanClubViewModel {
                 if self.currentPage == 1 {
                     self.peoples = data.results
                 } else {
-                    self.peoples?.append(contentsOf: data.results)
+                    self.peoples.append(contentsOf: data.results)
                 }
                 self.currentPage += 1
             }.store(in: &bags)
