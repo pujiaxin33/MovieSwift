@@ -104,7 +104,7 @@ struct MovieCardView: View {
                         .foregroundStyle(Color.yellow)
                     
                     HStack {
-                        Text(movie.voteAverageText)
+                        PopularityBadge(score: Int(movie.vote_average * 10))
                         if let date = movie.release_date {
                             Text(date)
                         }

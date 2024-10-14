@@ -30,7 +30,7 @@ extension Movie {
     }
     
     var voteAverageText: String {
-        return "\(Int(vote_average))%"
+        return "\(Int(vote_average * 10))%"
     }
     
     var voteCountText: String {

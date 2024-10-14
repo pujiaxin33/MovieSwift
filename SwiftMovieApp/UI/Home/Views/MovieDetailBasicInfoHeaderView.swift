@@ -23,7 +23,12 @@ struct MovieDetailBasicInfoHeaderView: View {
                         if let countryName = movie.production_countries?.first?.name {
                             Text(countryName)
                         }
-                        Text("\(movie.voteAverageText) \(movie.voteCountText)")
+                        
+                        HStack {
+                            PopularityBadge(score: Int(movie.vote_average * 10))
+                            
+                            Text(movie.voteCountText)
+                        }
                     }
                 }
                 
