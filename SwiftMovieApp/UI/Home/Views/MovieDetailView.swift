@@ -11,6 +11,7 @@ import Networking
 struct MovieDetailView: View {
     @State var viewModel: MovieDetailViewModel
     @State private var isAlertShowing: Bool = false
+    @State private var selectedImage: ImageData?
     @Environment(\.navigation) private var navigation
     
     var body: some View {
@@ -32,57 +33,47 @@ struct MovieDetailView: View {
             }
         }
         .confirmationDialog("alert title", isPresented: $isAlertShowing, actions: {
-            Button(role: viewModel.isInWishlist ? .destructive : nil) {
-                if viewModel.isInWishlist {
-                    viewModel.removeFromWishList()
-                } else {
-                    viewModel.addToWishList()
-                }
-            } label: {
-                Text(viewModel.isInWishlist ? "Remove from wishlist" : "Add to wishlist")
-            }
-            
-            Button(role: viewModel.isInSeenlist ? .destructive : nil) {
-                if viewModel.isInSeenlist {
-                    viewModel.removeFromSeenList()
-                } else {
-                    viewModel.addToSeenList()
-                }
-            } label: {
-                Text(viewModel.isInSeenlist ? "Remove from seenlist" : "Add to seenlist")
-            }
-            
-            Button(role: .cancel) {
-            } label: {
-                Text("Cancel")
-            }
+            confirmDialogActions()
         }, message: {
             Text("Add or remove to list")
         })
-//        .sheet(isPresented: $isAlertShowing, content: {
-//            Button {
-//                viewModel.addToWishList()
-//            } label: {
-//                Text("Add to wishlist")
-//            }
-//            
-//            Button {
-//                viewModel.addToWishList()
-//            } label: {
-//                Text("Add to seenlist")
-//            }
-//            
-//            Button(role: .cancel) {
-//            } label: {
-//                Text("Cancel")
-//            }
-//        })
-//        .alert("alert title", isPresented: $isAlertShowing, actions: {
-//        }, message: {
-//            Text("Add or remove")
-//        })
+        .overlay {
+            if selectedImage != nil, let posters = viewModel.movie.images?.posters{
+                ImagesCarouselView(images: posters, selectedImage: $selectedImage)
+                    .background(.thinMaterial)
+                    .transition(.scale)
+            }
+        }
         .onAppear {
             viewModel.loadData()
+        }
+    }
+    
+    @ViewBuilder
+    func confirmDialogActions() -> some View {
+        Button(role: viewModel.isInWishlist ? .destructive : nil) {
+            if viewModel.isInWishlist {
+                viewModel.removeFromWishList()
+            } else {
+                viewModel.addToWishList()
+            }
+        } label: {
+            Text(viewModel.isInWishlist ? "Remove from wishlist" : "Add to wishlist")
+        }
+        
+        Button(role: viewModel.isInSeenlist ? .destructive : nil) {
+            if viewModel.isInSeenlist {
+                viewModel.removeFromSeenList()
+            } else {
+                viewModel.addToSeenList()
+            }
+        } label: {
+            Text(viewModel.isInSeenlist ? "Remove from seenlist" : "Add to seenlist")
+        }
+        
+        Button(role: .cancel) {
+        } label: {
+            Text("Cancel")
         }
     }
     
@@ -149,7 +140,7 @@ struct MovieDetailView: View {
             }
             
             if let images = viewModel.movie.images?.posters, !images.isEmpty {
-                MovieDetailPosterCardView(images: images)
+                MovieDetailPosterCardView(images: images, selectedImage: $selectedImage)
             }
             
             if let images = viewModel.movie.images?.backdrops, !images.isEmpty {

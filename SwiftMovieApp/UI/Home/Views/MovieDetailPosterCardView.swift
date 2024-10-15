@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MovieDetailPosterCardView: View {
     let images: [ImageData]
+    @Binding var selectedImage: ImageData?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -18,13 +19,12 @@ struct MovieDetailPosterCardView: View {
                 LazyHStack {
                     ForEach(images) { image in
                         MoviePosterView(path: image.file_path, urlSize: .medium, size: .medium)
+                            .onTapGesture {
+                                selectedImage = image
+                            }
                     }
                 }
             }
         }
     }
-}
-
-#Preview {
-    MovieDetailPosterCardView(images: [])
 }

@@ -34,3 +34,8 @@ struct PeopleListPath: Hashable {
     let naviTitle: String
     let peoples: [People]
 }
+
+struct ImagesListPath: Hashable {
+    let images: [ImageData]
+    let selectedImage: ImageData
+}

@@ -94,6 +94,7 @@
 		B2ECFC8C2CA547050026857C /* PeopleDetailBiographyRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ECFC8B2CA547050026857C /* PeopleDetailBiographyRow.swift */; };
 		B2ECFC8E2CA547E80026857C /* PeopleDetailImagesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ECFC8D2CA547E80026857C /* PeopleDetailImagesRow.swift */; };
 		B2ECFC902CA54D030026857C /* PeopleDetailMovieRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ECFC8F2CA54D030026857C /* PeopleDetailMovieRow.swift */; };
+		B2F079CA2CBE5D5800F61F44 /* ImagesCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F079C92CBE5D5800F61F44 /* ImagesCarouselView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,7 @@
 		B2ECFC8B2CA547050026857C /* PeopleDetailBiographyRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleDetailBiographyRow.swift; sourceTree = "<group>"; };
 		B2ECFC8D2CA547E80026857C /* PeopleDetailImagesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleDetailImagesRow.swift; sourceTree = "<group>"; };
 		B2ECFC8F2CA54D030026857C /* PeopleDetailMovieRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleDetailMovieRow.swift; sourceTree = "<group>"; };
+		B2F079C92CBE5D5800F61F44 /* ImagesCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCarouselView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -439,6 +441,7 @@
 				B23E8B9E2CB7B0D4008F3CD8 /* LayoutData.swift */,
 				B23E8BB02CB9207C008F3CD8 /* BorderedButton.swift */,
 				B2AFFA3B2CBD020400630365 /* PopularityBadge.swift */,
+				B2F079C92CBE5D5800F61F44 /* ImagesCarouselView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				B2C3B5A42CA16FF500D9C552 /* MoviesHomeViewModel.swift in Sources */,
 				B2C3B5982CA16C5A00D9C552 /* PaginatedResponse.swift in Sources */,
 				B2C3B5A12CA16CF800D9C552 /* MoviesMenu.swift in Sources */,
+				B2F079CA2CBE5D5800F61F44 /* ImagesCarouselView.swift in Sources */,
 				B23E8BA22CB7C3B2008F3CD8 /* DiscoverView.swift in Sources */,
 				B2ECFC822CA50A9C0026857C /* FanClubView.swift in Sources */,
 				B2ECFC882CA5304E0026857C /* PeopleDetailViewModel.swift in Sources */,
