@@ -29,7 +29,7 @@
 		B29E2A892CB50085004054C5 /* OnFirstAppearModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E2A882CB50085004054C5 /* OnFirstAppearModifier.swift */; };
 		B29E2A8B2CB5032C004054C5 /* ShowLoadingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E2A8A2CB5032C004054C5 /* ShowLoadingModifier.swift */; };
 		B29E2A8D2CB511E9004054C5 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E2A8C2CB511E9004054C5 /* ToastView.swift */; };
-		B29E2A902CB5143B004054C5 /* MockAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E2A8F2CB5143B004054C5 /* MockAPIService.swift */; };
+		B29E2A902CB5143B004054C5 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E2A8F2CB5143B004054C5 /* MockAPIClient.swift */; };
 		B29E2A942CB529D2004054C5 /* FanClubUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E2A932CB529D2004054C5 /* FanClubUseCase.swift */; };
 		B29E2A962CB52C90004054C5 /* MockFanClubUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E2A952CB52C90004054C5 /* MockFanClubUseCase.swift */; };
 		B29E2A982CB52D75004054C5 /* MockFanClubPeopleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29E2A972CB52D75004054C5 /* MockFanClubPeopleStorage.swift */; };
@@ -137,7 +137,7 @@
 		B29E2A882CB50085004054C5 /* OnFirstAppearModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnFirstAppearModifier.swift; sourceTree = "<group>"; };
 		B29E2A8A2CB5032C004054C5 /* ShowLoadingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLoadingModifier.swift; sourceTree = "<group>"; };
 		B29E2A8C2CB511E9004054C5 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		B29E2A8F2CB5143B004054C5 /* MockAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIService.swift; sourceTree = "<group>"; };
+		B29E2A8F2CB5143B004054C5 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		B29E2A932CB529D2004054C5 /* FanClubUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanClubUseCase.swift; sourceTree = "<group>"; };
 		B29E2A952CB52C90004054C5 /* MockFanClubUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFanClubUseCase.swift; sourceTree = "<group>"; };
 		B29E2A972CB52D75004054C5 /* MockFanClubPeopleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFanClubPeopleStorage.swift; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 		B29E2A8E2CB5142E004054C5 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				B29E2A8F2CB5143B004054C5 /* MockAPIService.swift */,
+				B29E2A8F2CB5143B004054C5 /* MockAPIClient.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -774,7 +774,7 @@
 				B2B496B32CA403F1009228E4 /* MovieDetailReviewsView.swift in Sources */,
 				B2B496B72CA4077B009228E4 /* MovieDetailPosterCardView.swift in Sources */,
 				B2C3B59B2CA16C5A00D9C552 /* DiscoverFilter.swift in Sources */,
-				B29E2A902CB5143B004054C5 /* MockAPIService.swift in Sources */,
+				B29E2A902CB5143B004054C5 /* MockAPIClient.swift in Sources */,
 				B23E8BAD2CB914F6008F3CD8 /* SeenMoviesStorage.swift in Sources */,
 				B201DFA32CB683E600066556 /* GenreListView.swift in Sources */,
 				B2C3B5942CA16C5A00D9C552 /* Video.swift in Sources */,

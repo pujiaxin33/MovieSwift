@@ -3,12 +3,12 @@ import Moya
 import Combine
 import CombineMoya
 
-public protocol APIService {
+public protocol APIClient {
     func request<T: Codable>(endpoint: Endpoint) -> AnyPublisher<T, Error>
 }
 
-public struct DefaultAPIService: APIService {
-    public static let shared = DefaultAPIService()
+public struct DefaultAPIClient: APIClient {
+    public static let shared = DefaultAPIClient()
     
     let baseURL = URL(string: "https://api.themoviedb.org/3")!
     static let apiKey = "1d9b898a212ea52e283351e521e17871"

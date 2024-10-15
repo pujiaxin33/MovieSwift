@@ -118,7 +118,7 @@ public enum Endpoint: TargetType {
     }
     
     private func mergeParameters(_ params: [String: Any]) -> [String: Any] {
-        var result: [String: Any] = ["api_key": DefaultAPIService.apiKey, "language": Locale.preferredLanguages[0]]
+        var result: [String: Any] = ["api_key": DefaultAPIClient.apiKey, "language": Locale.preferredLanguages[0]]
         return result.reduce(into: params) { (partialResult, element) in
             partialResult[element.key] = element.value
         }

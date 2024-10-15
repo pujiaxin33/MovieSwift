@@ -1,5 +1,5 @@
 //
-//  MockAPIService.swift
+//  MockapiClient.swift
 //  SwiftMovieApp
 //
 //  Created by Jiaxin Pu on 2024/10/8.
@@ -9,7 +9,7 @@ import Foundation
 import Networking
 import Combine
 
-public struct MockAPIService: APIService {
+public struct MockAPIClient: APIClient {
     enum Result {
         case success(Data)
         case failure(Error)

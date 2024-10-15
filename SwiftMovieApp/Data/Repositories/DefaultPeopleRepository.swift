@@ -10,25 +10,25 @@ import Networking
 import Combine
 
 class DefaultPeopleRepository: PeopleRepository {
-    let apiService: APIService
+    let apiClient: APIClient
     
-    init(apiService: APIService) {
-        self.apiService = apiService
+    init(apiClient: APIClient) {
+        self.apiClient = apiClient
     }
     
     func fetchPersonDetail(id: Int) -> AnyPublisher<People, Error> {
-        return apiService.request(endpoint: .personDetail(person: id))
+        return apiClient.request(endpoint: .personDetail(person: id))
     }
     
     func fetchPersonImages(id: Int) -> AnyPublisher<ImagesResponse, Error> {
-        return apiService.request(endpoint: .personImages(person: id))
+        return apiClient.request(endpoint: .personImages(person: id))
     }
     
     func fetchPersonMovieCredits(id: Int) -> AnyPublisher<PeopleCreditsResponse, Error> {
-        return apiService.request(endpoint: .personMovieCredits(person: id))
+        return apiClient.request(endpoint: .personMovieCredits(person: id))
     }
     
     func searchPeoples(params: [String : Any]) -> AnyPublisher<PaginatedResponse<People>, Error> {
-        return apiService.request(endpoint: .searchPerson(params: params))
+        return apiClient.request(endpoint: .searchPerson(params: params))
     }
 }

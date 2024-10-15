@@ -10,13 +10,13 @@ import Networking
 import Combine
 
 class DefaultFanClubRepository: FanClubRepository {
-    let apiService: APIService
+    let apiClient: APIClient
     
-    init(apiService: APIService) {
-        self.apiService = apiService
+    init(apiClient: APIClient) {
+        self.apiClient = apiClient
     }
     
     func fetchPopularPersons(params: [String : Any]) -> AnyPublisher<PaginatedResponse<People>, Error> {
-        return apiService.request(endpoint: .popularPersons(params: params))
+        return apiClient.request(endpoint: .popularPersons(params: params))
     }
 }

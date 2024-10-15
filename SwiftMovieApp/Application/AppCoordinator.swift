@@ -9,8 +9,7 @@ import Foundation
 import Networking
 
 class AppCoordinator {
-    private let apiService = DefaultAPIService.shared
-//    private let apiService = MockAPIService(result: .failure(MockAPIService.MockError.test))
+    private let apiClient = DefaultAPIClient.shared
     private let moviesRepository: MoviesRepository
     private let peopleRepository: PeopleRepository
     private let fanClubRepository: FanClubRepository
@@ -20,9 +19,9 @@ class AppCoordinator {
     private let uiModuleCoordinator: UIModuleCoordinator
     
     init() {
-        self.moviesRepository = DefaultMoviesRepository(apiService: apiService)
-        self.peopleRepository = DefaultPeopleRepository(apiService: apiService)
-        self.fanClubRepository = DefaultFanClubRepository(apiService: apiService)
+        self.moviesRepository = DefaultMoviesRepository(apiClient: apiClient)
+        self.peopleRepository = DefaultPeopleRepository(apiClient: apiClient)
+        self.fanClubRepository = DefaultFanClubRepository(apiClient: apiClient)
         self.uiModuleCoordinator = .init(
             repository: moviesRepository,
             peopleRepository: peopleRepository,
