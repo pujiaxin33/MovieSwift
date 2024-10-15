@@ -10,7 +10,7 @@ import Networking
 
 struct MovieDetailView: View {
     @State var viewModel: MovieDetailViewModel
-    
+    @State private var isAlertShowing: Bool = false
     @Environment(\.navigation) private var navigation
     
     var body: some View {
@@ -24,6 +24,63 @@ struct MovieDetailView: View {
         .navigationDestination(for: [Review].self, destination: { (reviews) in
             MovieReviewsView(reviews: reviews)
         })
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("", systemImage: "text.badge.plus") {
+                    isAlertShowing = true
+                }
+            }
+        }
+        .confirmationDialog("alert title", isPresented: $isAlertShowing, actions: {
+            Button(role: viewModel.isInWishlist ? .destructive : nil) {
+                if viewModel.isInWishlist {
+                    viewModel.removeFromWishList()
+                } else {
+                    viewModel.addToWishList()
+                }
+            } label: {
+                Text(viewModel.isInWishlist ? "Remove from wishlist" : "Add to wishlist")
+            }
+            
+            Button(role: viewModel.isInSeenlist ? .destructive : nil) {
+                if viewModel.isInSeenlist {
+                    viewModel.removeFromSeenList()
+                } else {
+                    viewModel.addToSeenList()
+                }
+            } label: {
+                Text(viewModel.isInSeenlist ? "Remove from seenlist" : "Add to seenlist")
+            }
+            
+            Button(role: .cancel) {
+            } label: {
+                Text("Cancel")
+            }
+        }, message: {
+            Text("Add or remove to list")
+        })
+//        .sheet(isPresented: $isAlertShowing, content: {
+//            Button {
+//                viewModel.addToWishList()
+//            } label: {
+//                Text("Add to wishlist")
+//            }
+//            
+//            Button {
+//                viewModel.addToWishList()
+//            } label: {
+//                Text("Add to seenlist")
+//            }
+//            
+//            Button(role: .cancel) {
+//            } label: {
+//                Text("Cancel")
+//            }
+//        })
+//        .alert("alert title", isPresented: $isAlertShowing, actions: {
+//        }, message: {
+//            Text("Add or remove")
+//        })
         .onAppear {
             viewModel.loadData()
         }
