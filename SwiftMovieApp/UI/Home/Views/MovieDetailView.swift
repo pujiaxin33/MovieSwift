@@ -14,6 +14,7 @@ struct MovieDetailView: View {
     @Environment(\.navigation) private var navigation
     
     var body: some View {
+        let _ = Self._printChanges()
         List {
             headerSection
             

@@ -26,8 +26,8 @@ class MovieDetailViewModel {
         self.useCase = useCase
         self.movie = movie
         
-        isInWishlist = useCase.fetchWishMovies().contains(movie)
-        isInSeenlist = useCase.fetchSeenMovies().contains(movie)
+        isInWishlist = useCase.fetchWishMovies().map { $0.id }.contains(movie.id)
+        isInSeenlist = useCase.fetchSeenMovies().map { $0.id }.contains(movie.id)
     }
 
     func loadData() {
