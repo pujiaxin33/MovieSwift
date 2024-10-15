@@ -30,13 +30,13 @@ public struct BorderedButton : View {
                 Image(systemName: systemImageName).foregroundColor(isOn ? .white : color)
                 Text(text).foregroundColor(isOn ? .white : color)
             }
-            })
-            .buttonStyle(BorderlessButtonStyle())
-            .padding(6)
-            .background(RoundedRectangle(cornerRadius: 8)
-                .stroke(color, lineWidth: isOn ? 0 : 2)
-                .background(isOn ? color : .clear)
-                .cornerRadius(8))
+        })
+        .buttonStyle(BorderlessButtonStyle())
+        .padding(6)
+        .background(RoundedRectangle(cornerRadius: 8)
+            .stroke(color, lineWidth: isOn ? 0 : 2)
+            .background(isOn ? color : .clear)
+            .cornerRadius(8))
     }
 }
 
