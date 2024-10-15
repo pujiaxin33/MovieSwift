@@ -105,7 +105,7 @@ struct MoviesHomeView: View {
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 15) {
                         ForEach(movies) { movie in
-                            MoviePosterView(path: movie.poster_path, urlSize: .medium, size: .medium)
+                            MoviePosterView(path: movie.poster_path, size: .medium)
                                 .onTapGesture {
                                     navigation.path.append(movie)
                                 }

@@ -17,7 +17,7 @@ struct PeopleDetailImagesRow: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .center, spacing: 16) {
                     ForEach(images) { image in
-                        MoviePosterView(path: image.file_path, urlSize: .medium, size: .medium)
+                        MoviePosterView(path: image.file_path, size: .medium)
                     }
                 }
                 .padding(.leading)

@@ -19,7 +19,7 @@ struct ImagesCarouselView: View {
                         HStack(spacing: 20) {
                             ForEach(images) { image in
                                 GeometryReader { reader2 in
-                                    MoviePosterView(path: image.file_path, urlSize: .original, size: .big)
+                                    MoviePosterView(path: image.file_path, size: .big)
                                         .id(image.id)
                                         .scaleEffect(scaleFactor(geometry: reader2))
                                 }.frame(width: 250, height: 375)

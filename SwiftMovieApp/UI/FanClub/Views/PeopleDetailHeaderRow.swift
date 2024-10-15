@@ -12,7 +12,7 @@ struct PeopleDetailHeaderRow: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            MoviePosterView(path: people.profile_path, urlSize: .medium, size: .medium)
+            MoviePosterView(path: people.profile_path, size: .medium)
             
             VStack(alignment: .leading) {
                 Text("Known for")

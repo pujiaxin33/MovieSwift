@@ -13,7 +13,7 @@ struct PeopleDetailMovieRow: View {
     var body: some View {
         NavigationLink(value: movie) {
             HStack {
-                MoviePosterView(path: movie.poster_path, urlSize: .small, size: .small)
+                MoviePosterView(path: movie.poster_path, size: .small)
                 
                 VStack(alignment: .leading) {
                     Text(movie.title)

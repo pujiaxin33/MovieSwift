@@ -21,7 +21,7 @@ struct PeoplesListCardView: View {
                 LazyHStack {
                     ForEach(peoples) { people in
                         VStack {
-                            MoviePosterView(path: people.profile_path, urlSize: .medium, size: .medium)
+                            MoviePosterView(path: people.profile_path, size: .medium)
                             
                             Text(people.name)
                                 .font(.headline)

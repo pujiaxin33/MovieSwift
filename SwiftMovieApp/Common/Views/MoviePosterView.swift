@@ -11,13 +11,12 @@ import Kingfisher
 
 struct MoviePosterView: View {
     let path: String?
-    let urlSize: ImageService.Size
     let size: PosterStyle.Size
     
     var body: some View {
         if let path {
             KFImage
-                .url(ImageService.posterUrl(path: path, size: urlSize))
+                .url(ImageService.posterUrl(path: path, size: size.urlSize()))
                 .placeholder { _ in
                     ProgressView()
                         .frame(width: size.width(), height: size.height())
@@ -38,5 +37,5 @@ struct MoviePosterView: View {
 }
 
 #Preview {
-    MoviePosterView(path: nil, urlSize: .medium, size: .medium)
+    MoviePosterView(path: nil, size: .medium)
 }

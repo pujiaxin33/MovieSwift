@@ -23,7 +23,7 @@ struct PeopleCardView: View {
     var body: some View {
         NavigationLink(value: people) {
             HStack {
-                MoviePosterView(path: people.profile_path, urlSize: .medium, size: .medium)
+                MoviePosterView(path: people.profile_path, size: .medium)
                 
                 VStack(alignment: .leading) {
                     Text(people.name)

@@ -97,7 +97,7 @@ struct MovieCardView: View {
     var body: some View {
         NavigationLink(value: movie) {
             HStack {
-                MoviePosterView(path: movie.poster_path, urlSize: .medium, size: .medium)
+                MoviePosterView(path: movie.poster_path, size: .medium)
                 
                 VStack(alignment: .leading) {
                     Text(movie.title)

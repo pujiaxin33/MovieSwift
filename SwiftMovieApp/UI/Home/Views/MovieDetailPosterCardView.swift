@@ -18,7 +18,7 @@ struct MovieDetailPosterCardView: View {
             ScrollView(.horizontal) {
                 LazyHStack {
                     ForEach(images) { image in
-                        MoviePosterView(path: image.file_path, urlSize: .medium, size: .medium)
+                        MoviePosterView(path: image.file_path, size: .medium)
                             .onTapGesture {
                                 selectedImage = image
                             }

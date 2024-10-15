@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Networking
 
 struct PosterStyle: ViewModifier {
     enum Size {
@@ -25,6 +26,15 @@ struct PosterStyle: ViewModifier {
             case .medium: return 150
             case .big: return 375
             case .tv: return 500
+            }
+        }
+        
+        func urlSize() -> ImageService.Size {
+            switch self {
+            case .small: return .small
+            case .medium: return .medium
+            case .big: return .original
+            case .tv: return .original
             }
         }
     }

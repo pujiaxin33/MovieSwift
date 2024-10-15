@@ -24,7 +24,7 @@ struct DiscoverView: View {
                             GeometryReader { geometry in
                                 // 图片视图
                                 NavigationLink(value: movie) {
-                                    MoviePosterView(path: movie.poster_path, urlSize: .medium, size: .big)
+                                    MoviePosterView(path: movie.poster_path, size: .big)
                                     // 动态缩放，根据每个视图相对于屏幕中心的距离调整缩放效果
                                         .scaleEffect(scaleFactor(geometry: geometry))
                                 }
