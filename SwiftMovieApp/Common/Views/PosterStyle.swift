@@ -33,8 +33,8 @@ struct PosterStyle: ViewModifier {
             switch self {
             case .small: return .small
             case .medium: return .medium
-            case .big: return .original
-            case .tv: return .original
+            case .big: return .medium
+            case .tv: return .medium
             }
         }
     }

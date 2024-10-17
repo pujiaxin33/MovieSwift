@@ -13,6 +13,7 @@ struct MovieDetailView: View {
     @State private var isAlertShowing: Bool = false
     @State private var selectedImage: ImageData?
     @Environment(\.navigation) private var navigation
+    @State private var isImageCarouselPresented: Bool = false
     
     var body: some View {
         let _ = Self._printChanges()
@@ -37,15 +38,20 @@ struct MovieDetailView: View {
         }, message: {
             Text("Add or remove to list")
         })
-        .overlay {
-            if selectedImage != nil, let posters = viewModel.movie.images?.posters{
-                ImagesCarouselView(images: posters, selectedImage: $selectedImage)
-                    .background(.thinMaterial)
-                    .transition(.scale)
-            }
-        }
         .onAppear {
             viewModel.loadData()
+        }
+        .onChange(of: selectedImage, {
+            if selectedImage != nil, viewModel.movie.images?.posters != nil {
+                isImageCarouselPresented = true
+            } else {
+                isImageCarouselPresented = false
+            }
+        })
+        .fullScreenCover(isPresented: $isImageCarouselPresented) {
+            if let posters = viewModel.movie.images?.posters {
+                ImagesCarouselView(images: posters, selectedImage: $selectedImage)
+            }
         }
     }
     

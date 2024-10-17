@@ -22,6 +22,11 @@ struct ImagesCarouselView: View {
                                     MoviePosterView(path: image.file_path, size: .big)
                                         .id(image.id)
                                         .scaleEffect(scaleFactor(geometry: reader2))
+                                        .onTapGesture {
+                                            withAnimation {
+                                                proxy.scrollTo(image.id, anchor: .center)
+                                            }
+                                        }
                                 }.frame(width: 250, height: 375)
                             }
                         }
@@ -41,6 +46,7 @@ struct ImagesCarouselView: View {
                 .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).maxY - 120)
             }
         }
+        .presentationBackground(.ultraThinMaterial)
     }
     
     // 计算缩放因子，根据图片相对屏幕中心的距离调整大小
