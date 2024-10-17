@@ -11,6 +11,7 @@ struct MyListView: View {
     let coordinator: UIModuleCoordinator
     @State var viewModel: MyListViewModel
     @State var navigation: Navigation = .init()
+    @Environment(AppConfiguration.self) var appConfiguration
     
     var body: some View {
         NavigationStack(path: $navigation.path) {
@@ -27,18 +28,25 @@ struct MyListView: View {
                     }.pickerStyle(SegmentedPickerStyle())
                 }
                 
-                Section {
-                    ForEach(viewModel.showMovies, id: \.self) { movie in
-                        MovieCardView(movie: movie)
+                if viewModel.showMovies.isEmpty {
+                    Button {
+                        appConfiguration.appTab = .home
+                    } label: {
+                        Text("Add movies in home page")
                     }
-                } header: {
-                    Text("\(viewModel.showMovies.count) Movies in \(viewModel.listType.nameInSectionHeader)")
-                }
 
+                } else {
+                    Section {
+                        ForEach(viewModel.showMovies, id: \.self) { movie in
+                            MovieCardView(movie: movie)
+                        }
+                    } header: {
+                        Text("\(viewModel.showMovies.count) Movies in \(viewModel.listType.nameInSectionHeader)")
+                    }
+                }
             }
             .navigationTitle("My List")
             .registerUIModuleNavigationDestinations(with: coordinator)
-    //        .listStyle(PlainListStyle())
             .onAppear {
                 viewModel.loadData()
             }

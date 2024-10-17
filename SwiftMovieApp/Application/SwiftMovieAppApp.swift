@@ -6,6 +6,14 @@
 //
 
 import SwiftUI
+import Combine
+
+enum AppTab: Int, Equatable {
+    case home
+    case discover
+    case fanClub
+    case myLists
+}
 
 @main
 struct SwiftMovieAppApp: App {
@@ -18,22 +26,30 @@ struct SwiftMovieAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TabView {
-                coordinator.makeMoviesHomeView().tabItem {
-                    Label("Home", systemImage: "movieclapper.fill")
-                }
+            TabView(selection: $appConfiguration.appTab) {
+                coordinator.makeMoviesHomeView()
+                    .tabItem {
+                        Label("Home", systemImage: "movieclapper.fill")
+                    }
+                    .tag(AppTab.home)
                 
-                coordinator.makeDiscoverView().tabItem {
-                    Label("Discover", systemImage: "lanyardcard.fill")
-                }
+                coordinator.makeDiscoverView()
+                    .tabItem {
+                        Label("Discover", systemImage: "lanyardcard.fill")
+                    }
+                    .tag(AppTab.discover)
                 
-                coordinator.makeFanClubView().tabItem {
-                    Label("Fan Club", systemImage: "star.circle.fill")
-                }
+                coordinator.makeFanClubView()
+                    .tabItem {
+                        Label("Fan Club", systemImage: "star.circle.fill")
+                    }
+                    .tag(AppTab.fanClub)
                 
-                coordinator.makeMyListView().tabItem {
-                    Label("My Lists", systemImage: "heart.circle.fill")
-                }
+                coordinator.makeMyListView()
+                    .tabItem {
+                        Label("My Lists", systemImage: "heart.circle.fill")
+                    }
+                    .tag(AppTab.myLists)
             }
             .environment(appConfiguration)
             .onAppear() {
@@ -46,21 +62,8 @@ struct SwiftMovieAppApp: App {
 @Observable
 class AppConfiguration {
     var appVersion: String = ""
-    
+    var appTab: AppTab = .home
+
     func loadConfigs() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            self.appVersion = "1.0.0"
-        }
-    }
-}
-
-extension EnvironmentValues {
-    private struct AppConfigurationKey: EnvironmentKey {
-        static let defaultValue = AppConfiguration()
-    }
-
-    var appConfiguration: AppConfiguration {
-        get { self[AppConfigurationKey.self] }
-        set { self[AppConfigurationKey.self] = newValue }
     }
 }
