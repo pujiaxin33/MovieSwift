@@ -40,8 +40,8 @@ final class FanClubViewModelTests: XCTestCase {
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            XCTAssertEqual(self.viewModel.peoples?.count, 1)
-            XCTAssertEqual(self.viewModel.peoples?.first?.name, "John Doe")
+            XCTAssertEqual(self.viewModel.peoples.count, 1)
+            XCTAssertEqual(self.viewModel.peoples.first?.name, "John Doe")
             expectation.fulfill()
         }
 
@@ -113,14 +113,14 @@ final class FanClubViewModelTests: XCTestCase {
         viewModel.loadData()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            XCTAssertEqual(self.viewModel.peoples?.count, 1)
+            XCTAssertEqual(self.viewModel.peoples.count, 1)
 
             // Second load
             self.mockUseCase.mockResult = .success(PaginatedResponse(page: 2, total_results: 1, total_pages: 1, results: mockPeopleSecondLoad))
             self.viewModel.loadData()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                XCTAssertEqual(self.viewModel.peoples?.count, 2)
+                XCTAssertEqual(self.viewModel.peoples.count, 2)
                 expectation.fulfill()
             }
         }
