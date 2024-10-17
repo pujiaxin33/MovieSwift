@@ -76,7 +76,7 @@ final class FanClubViewModelTests: XCTestCase {
 
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            XCTAssertNil(self.viewModel.peoples)
+            XCTAssertTrue(self.viewModel.peoples.isEmpty)
             XCTAssertNotNil(self.viewModel.toast)
             expectation.fulfill()
         }

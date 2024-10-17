@@ -32,7 +32,6 @@ class FanClubViewModel {
         let params = ["page": "\(currentPage)",
                       "region": region]
         useCase.fetchPopularPersons(params: params)
-            .delay(for: 2, scheduler: DispatchQueue.main)
             .sink { (completion) in
                 self.isLoading = false
                 switch completion {

@@ -82,8 +82,8 @@ let samplePeople = People(
 )
 
 let samplePeopleCantShowBiography = People(
-    id: 1,
-    name: "John Doe",
+    id: 2,
+    name: "Jason Li",
     character: "Main Character",
     department: "Acting",
     profile_path: "/profile_path.jpg",
