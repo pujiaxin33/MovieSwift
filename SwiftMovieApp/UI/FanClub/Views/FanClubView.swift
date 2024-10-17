@@ -45,7 +45,7 @@ struct FanClubView: View {
                     }
                 }
                 
-                if !viewModel.isLoadFinished && (!viewModel.favoritePeople.isEmpty || !viewModel.peoples.isEmpty) {
+                if !viewModel.isLoadFinished && !viewModel.peoples.isEmpty {
                     Section {
                         VStack(alignment: .center) {
                             ProgressView()
