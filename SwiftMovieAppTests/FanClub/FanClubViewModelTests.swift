@@ -58,7 +58,7 @@ final class FanClubViewModelTests: XCTestCase {
         viewModel.loadData()
 
         // Then
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.async {
             XCTAssertFalse(self.viewModel.isLoading)
             expectation.fulfill()
         }
